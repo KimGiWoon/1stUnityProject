@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] float moveSpeed;
     [SerializeField] float jumpForce;
-    [SerializeField] Rigidbody rb;
+    [SerializeField] private Rigidbody rb;
     private bool isGround;
 
 
@@ -32,10 +32,23 @@ public class PlayerController : MonoBehaviour
         float moveX = Input.GetAxis("Horizontal");
         float moveZ = Input.GetAxis("Vertical");
 
-        Vector3 move = transform.right * moveX + transform.forward * moveZ;
-        Vector3 moveVelocity = move * moveSpeed;
-        Vector3 currentVelocity = rb.velocity;
-        rb.velocity = new Vector3(moveVelocity.x, currentVelocity.y, moveVelocity.z);
+        Vector3 front = new Vector3(moveX, 0f, moveZ).normalized; // 입력 방향을 벡터로 만들어줌. 카메라 방향에 따라 될 수 있음.
+
+        if (front != Vector3.zero) // 움직임이 0이 아니면
+        {
+            Vector3 camForward = Camera.main.transform.forward; // 카메라 앞 방향
+            Vector3 camRight = Camera.main.transform.right; // 카메라 오른쪽 방향
+
+            camForward.y = 0f; // 카메라 y축 고정
+            camRight.y = 0f; // 카메라 y축 고정
+            camForward.Normalize(); // 벡터는 고정하고 방향만
+            camRight.Normalize(); // 벡터는 고정하고 방향만
+
+            Vector3 moveDir = camForward * front.z + camRight * front.x; // 입력값을 카메라 방향 기준으로 변환
+
+
+            rb.AddForce(moveDir * moveSpeed, ForceMode.Force);
+        }
     }
 
     void Jump()
