@@ -28,25 +28,14 @@ public class PlayerController : MonoBehaviour
 
     void Move() // wasd 방향키에 따른 움직임 구현
     {
-        float moveX = 0f;
-        float moveZ = 0f;
 
+        float moveX = Input.GetAxis("Horizontal");
+        float moveZ = Input.GetAxis("Vertical");
 
-
-        if (Input.GetKey(KeyCode.W))
-            moveZ = 1f;
-        if (Input.GetKey(KeyCode.S))
-            moveZ = -1f;
-        if (Input.GetKey(KeyCode.A))
-            moveX = -1f;
-        if (Input.GetKey(KeyCode.D))
-            moveX = 1f;
-
-        Vector3 move = new Vector3(moveX, 0f, moveZ).normalized; // 방향
+        Vector3 move = transform.right * moveX + transform.forward * moveZ;
         Vector3 moveVelocity = move * moveSpeed;
         Vector3 currentVelocity = rb.velocity;
-
-        rb.velocity = new Vector3(moveVelocity.x, currentVelocity.y, moveVelocity.z);        // 수직 속도(y)는 그대로 유지하고, 수평 이동만 제어
+        rb.velocity = new Vector3(moveVelocity.x, currentVelocity.y, moveVelocity.z);
     }
 
     void Jump()
