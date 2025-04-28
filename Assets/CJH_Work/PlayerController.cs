@@ -46,10 +46,8 @@ public class PlayerController : MonoBehaviour
 
             Vector3 moveDir = camForward * front.z + camRight * front.x; // 입력값을 카메라 방향 기준으로 변환
 
-            Vector3 moveVelocity = moveDir * moveSpeed; // 방향에 속도로 움직임 구현
-            Vector3 currentVelocity = rb.velocity;
 
-            rb.velocity = new Vector3(moveVelocity.x, currentVelocity.y, moveVelocity.z);
+            rb.AddForce(moveDir * moveSpeed, ForceMode.Force);
         }
     }
 
