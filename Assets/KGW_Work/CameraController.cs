@@ -6,7 +6,7 @@ public class CameraController : MonoBehaviour
 {
     [SerializeField] Transform target;      // 따라갈 플레이어
     [SerializeField] Vector3 offset = new Vector3(0, 10, -13); // 카메라 초기 위치
-    [SerializeField][Range(10, 50)] float followSpeed = 10f;      // 플레이어 따라가는 속도 초기값
+    [SerializeField][Range(5, 20)] float followSpeed = 10f;      // 플레이어 따라가는 속도 초기값
     [SerializeField][Range(100, 500)] float rotateSpeed = 200f;     // 마우스 회전 속도 초기값
     [SerializeField] float cameraPosY = 4f; // 카메라 y축 초기위치
     float curRotationX = 0f;     // 현재 X축위치 초기화
