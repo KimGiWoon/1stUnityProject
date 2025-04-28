@@ -6,6 +6,7 @@ using UnityEngine;
 public class HammerMovement : MonoBehaviour {
     #region serialized fields
 
+    [Tooltip("회전 시간 == 속도와 반비례")]
     [SerializeField] private float _duration = 1f;
 
     #endregion // serialized fields

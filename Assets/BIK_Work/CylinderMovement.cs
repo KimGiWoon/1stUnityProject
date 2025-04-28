@@ -6,8 +6,11 @@ using UnityEngine;
 public class CylinderMovement : MonoBehaviour {
     #region serialized fields
 
+    [Tooltip("이동범위")]
     [SerializeField] private float _distance = 1f;
+    [Tooltip("이동시간 = 속도와 반비례")]
     [SerializeField] private float _duration = 1f;
+    [Tooltip("이동 방식")]
     [SerializeField] private Ease _ease = Ease.Linear;
 
     #endregion // serialized fields
