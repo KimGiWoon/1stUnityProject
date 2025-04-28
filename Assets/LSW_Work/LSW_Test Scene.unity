@@ -255,6 +255,7 @@ GameObject:
   - component: {fileID: 646000458}
   - component: {fileID: 646000457}
   - component: {fileID: 646000456}
+  - component: {fileID: 646000462}
   m_Layer: 0
   m_Name: Capsule
   m_TagString: Untagged
@@ -287,7 +288,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 80
   m_CollisionDetection: 0
 --- !u!136 &646000457
 CapsuleCollider:
@@ -400,6 +401,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &646000462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 646000455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27db355ca8205644ea370538e0ceaedf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 5
+  jumpForce: 3
+  rb: {fileID: 646000456}
 --- !u!1 &670605458
 GameObject:
   m_ObjectHideFlags: 0
@@ -714,7 +730,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6007782722282380386, guid: bcc99e76f595c1442ba6f5c447af08c7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -20
       objectReference: {fileID: 0}
     - target: {fileID: 6007782722282380386, guid: bcc99e76f595c1442ba6f5c447af08c7, type: 3}
       propertyPath: m_LocalPosition.z
