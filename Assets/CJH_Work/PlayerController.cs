@@ -31,13 +31,21 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+
     private void FixedUpdate() // �� ���� ����� FixedUpdate��!
+
+    
+
     {
         Move();
     }
 
 
-    void Move() // wasd ����Ű�� ���� ������ ����w
+
+    void Move() // wasd ����Ű�� ���� ������ ����
+
+    
+
     {
 
         float moveX = Input.GetAxis("Horizontal");
