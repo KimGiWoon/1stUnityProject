@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float jumpForce;
     [SerializeField] private Rigidbody rb;
     private bool isGround;
+    [SerializeField] float fallMultiplier = 2.5f;
 
 
 
@@ -17,14 +18,24 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    void Update()
+    private void Update()
     {
-        Move();
-        if (Input.GetKeyDown(KeyCode.Space) && isGround) // 땅에 붙어 있을 때 만 점프하게 구현
+        if (Input.GetKeyDown(KeyCode.Space) && isGround)
         {
             Jump();
         }
+
+        if (rb.velocity.y < 0)
+        {
+            rb.velocity += Vector3.up * Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
+        }
     }
+
+    private void FixedUpdate() // ★ 물리 기반은 FixedUpdate로!
+    {
+        Move();
+    }
+
 
     void Move() // wasd 방향키에 따른 움직임 구현
     {
