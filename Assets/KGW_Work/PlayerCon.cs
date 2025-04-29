@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerCon : MonoBehaviour
 {
     [SerializeField] float moveSpeed;
     [SerializeField] float jumpForce;
@@ -71,6 +71,4 @@ public class PlayerController : MonoBehaviour
             isGround = false;
         }
     }
-
-
 }
