@@ -2,8 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-using UnityEngine;
-
 public class SlimeTile : MonoBehaviour
 {
     [SerializeField] private float slowDrag = 5f; // 슬라임 위에서 drag
