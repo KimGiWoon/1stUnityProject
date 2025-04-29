@@ -1,31 +1,37 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class SquareWallMovement : MonoBehaviour
 {
-    // 하위 객체인 mainWall 드래그 앤 드롭
+    [Header("Drag&Drop")]
+    [Tooltip("하위 객체 mainWall")]
     [SerializeField] private Transform mainWall;
-    // 벽의 이동속도 - 인스펙터에서 조절 가능
+    
+    [Header("Number")]
+    [Tooltip("벽의 이동속도")]
     [SerializeField] private float moveSpeed;
+    
     // 벽의 운동 주기
-    private readonly float _moveTimer = 2f;
+    private float _moveTimer;
     // 흐름 제어를 위한 내부 캐싱
     private Coroutine _moveRoutine;
-
-    /// <summary>
-    /// 생성시 초기화 및 무브 코루틴 작동하도록 구현
-    /// </summary>
+    // 루틴 시작 시간 변수
+    private WaitForSeconds _waitTime;
+    
     private void Awake()
     {
         Init();
+    }
+
+    private void OnEnable()
+    {
         _moveRoutine = StartCoroutine(MoveRoutine());
     }
 
-    /// <summary>
-    /// 파괴되거나 비활성화시키는 경우 기존의 코루틴 종료
-    /// </summary>
     private void OnDisable()
     {
         if (_moveRoutine != null)
@@ -34,14 +40,11 @@ public class SquareWallMovement : MonoBehaviour
         }
     }
     
-    /// <summary>
-    /// _moveTimer(2초)를 주기로 앞뒤로 움직이는 메인 로직(코루틴)
-    /// </summary>
-    /// <returns>프레임 단위로 움직이기 위한 값</returns>
     private IEnumerator MoveRoutine()
     {
+        yield return _waitTime;
         float timer = 0f;
-        
+
         while (true)
         {
             while(timer < _moveTimer)
@@ -76,6 +79,8 @@ public class SquareWallMovement : MonoBehaviour
 
     private void Init()
     {
-        // 초기화 조건(생기는 경우)
+        float num = Random.Range(0,200);
+        _waitTime = new WaitForSeconds(num / 100);
+        _moveTimer = 4 / moveSpeed;
     }
 }

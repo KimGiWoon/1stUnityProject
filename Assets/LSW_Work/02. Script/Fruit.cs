@@ -5,16 +5,23 @@ using UnityEngine;
 
 public class Fruit : MonoBehaviour
 {
+    [Header("Number")]
+    [Tooltip("포탄(과일) 지속 시간")] 
     [SerializeField] private float liveTime;
-    public FruitPool pool;
-    private float _timer;
 
+    private float _timer;
+    private FruitPool _pool;
+    public FruitPool Pool
+    {
+        get { return _pool; }
+        set { _pool = value; }
+    }
+    
     private void OnEnable()
     {
         Init();
     }
-
-    // Update is called once per frame
+    
     private void Update()
     {
         _timer += Time.deltaTime;
@@ -25,13 +32,13 @@ public class Fruit : MonoBehaviour
     {
         if (_timer > liveTime)
         {
-            if (pool == null)
+            if (_pool == null)
             {
                 Destroy(gameObject);
             }
             else
             {
-                pool.ReturnPool(this);
+                _pool.ReturnPool(this);
             }
 
             _timer = 0f;
