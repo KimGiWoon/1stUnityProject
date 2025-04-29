@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class IceTile : MonoBehaviour
 {
-    [SerializeField] private float iceDrag = 0f; // 0으로 설정!
-    [SerializeField] private float normalDrag = 5f;
+    [SerializeField] private float iceDrag = 0f; // 얼음 위에서는 0
+    private Dictionary<Rigidbody, float> originalDrags = new Dictionary<Rigidbody, float>();
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -14,7 +14,9 @@ public class IceTile : MonoBehaviour
             Rigidbody rb = collision.gameObject.GetComponent<Rigidbody>();
             if (rb != null)
             {
-                rb.drag = iceDrag; // 얼음 위에 올라오면 마찰 감소
+                if (!originalDrags.ContainsKey(rb))
+                    originalDrags[rb] = rb.drag; // 들어올 때 원래 drag 저장
+                rb.drag = iceDrag; // 얼음 위에서는 미끄럽게
             }
         }
     }
@@ -26,7 +28,6 @@ public class IceTile : MonoBehaviour
             Rigidbody rb = collision.gameObject.GetComponent<Rigidbody>();
             if (rb != null)
             {
-                // 계속해서 drag를 iceDrag로 유지
                 rb.drag = iceDrag;
             }
         }
@@ -37,9 +38,10 @@ public class IceTile : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             Rigidbody rb = collision.gameObject.GetComponent<Rigidbody>();
-            if (rb != null)
+            if (rb != null && originalDrags.ContainsKey(rb))
             {
-                rb.drag = normalDrag; // 발판 벗어나면 drag 원래대로 복구
+                rb.drag = originalDrags[rb]; // 나갈 때 원래 drag 복구
+                originalDrags.Remove(rb); // 저장했던 정보도 삭제
             }
         }
     }
