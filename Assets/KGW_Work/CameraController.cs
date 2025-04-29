@@ -39,7 +39,7 @@ public class CameraController : MonoBehaviour
     private void CameraMove()
     {
         // 플레이어 위치 + 오프셋 (카메라 X, Y축)
-        transform.rotation = Quaternion.Euler(curRotationX, curRotationY, 0);
+        transform.rotation = Quaternion.Euler(curRotationX * (-1), curRotationY, 0);    // X축 이동 마우스 방향으로 카메라 쳐다보게
         Vector3 movePosition = target.position + transform.rotation * offset;
 
         // 부드럽게 이동 (Lerp 사용)
