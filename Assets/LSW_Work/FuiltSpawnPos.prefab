@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fruitPrefab: {fileID: 1727623736204653696, guid: 20731f1531441c248be294f8de59a74d, type: 3}
-  poolSize: 10
+  poolSize: 5
 --- !u!114 &18683482753163478
 MonoBehaviour:
   m_ObjectHideFlags: 0
