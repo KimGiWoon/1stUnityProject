@@ -502,6 +502,67 @@ Transform:
   - {fileID: 825583125}
   m_Father: {fileID: 1400473276}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!1001 &220039431
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1636837445}
+    m_Modifications:
+    - target: {fileID: 402191526131244851, guid: 2ed98ac00cad1e54f9b6a1d741345a6b, type: 3}
+      propertyPath: spawnPos
+      value: 
+      objectReference: {fileID: 476234330}
+    - target: {fileID: 2832657890599111782, guid: 2ed98ac00cad1e54f9b6a1d741345a6b, type: 3}
+      propertyPath: m_Name
+      value: ToonWater - Water - Solid 3200Tris
+      objectReference: {fileID: 0}
+    - target: {fileID: 8686145208153008291, guid: 2ed98ac00cad1e54f9b6a1d741345a6b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -15
+      objectReference: {fileID: 0}
+    - target: {fileID: 8686145208153008291, guid: 2ed98ac00cad1e54f9b6a1d741345a6b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -65.21
+      objectReference: {fileID: 0}
+    - target: {fileID: 8686145208153008291, guid: 2ed98ac00cad1e54f9b6a1d741345a6b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -34
+      objectReference: {fileID: 0}
+    - target: {fileID: 8686145208153008291, guid: 2ed98ac00cad1e54f9b6a1d741345a6b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8686145208153008291, guid: 2ed98ac00cad1e54f9b6a1d741345a6b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8686145208153008291, guid: 2ed98ac00cad1e54f9b6a1d741345a6b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8686145208153008291, guid: 2ed98ac00cad1e54f9b6a1d741345a6b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8686145208153008291, guid: 2ed98ac00cad1e54f9b6a1d741345a6b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8686145208153008291, guid: 2ed98ac00cad1e54f9b6a1d741345a6b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8686145208153008291, guid: 2ed98ac00cad1e54f9b6a1d741345a6b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2ed98ac00cad1e54f9b6a1d741345a6b, type: 3}
 --- !u!4 &232556519 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8907021970343637135, guid: af2354a907cbcc844a15f0cda777cd5f, type: 3}
@@ -2902,25 +2963,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1360481981}
   m_LocalEulerAnglesHint: {x: -80, y: 0, z: 0}
---- !u!1 &983639251 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 100000, guid: 1f51395fbcac9df4a8a3d61e81fe4552, type: 3}
-  m_PrefabInstance: {fileID: 1933565767}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &983639252
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 983639251}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f357e1d1f4f57748ad740325a2c4e52, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spawnPos: {fileID: 476234330}
-  upSpeed: 1
 --- !u!1 &1015895021
 GameObject:
   m_ObjectHideFlags: 0
@@ -3106,6 +3148,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 95afdd9f69d95684fa94714815b0f244, type: 3}
+--- !u!4 &1073570496 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8686145208153008291, guid: 2ed98ac00cad1e54f9b6a1d741345a6b, type: 3}
+  m_PrefabInstance: {fileID: 220039431}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1128053647
 GameObject:
   m_ObjectHideFlags: 0
@@ -4068,6 +4115,7 @@ Transform:
   - {fileID: 1612904104}
   - {fileID: 188027503}
   - {fileID: 1744135793}
+  - {fileID: 1073570496}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1649333102
@@ -5046,66 +5094,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6945235004974079473, guid: 0619d9859d5cdf043bbc86091f2f79f2, type: 3}
   m_PrefabInstance: {fileID: 1439947186}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &1933565767
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 100000, guid: 1f51395fbcac9df4a8a3d61e81fe4552, type: 3}
-      propertyPath: m_Name
-      value: ToonWater - Water - Solid 3200Tris
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 1f51395fbcac9df4a8a3d61e81fe4552, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -15
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 1f51395fbcac9df4a8a3d61e81fe4552, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -65.21
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 1f51395fbcac9df4a8a3d61e81fe4552, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -34
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 1f51395fbcac9df4a8a3d61e81fe4552, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 1f51395fbcac9df4a8a3d61e81fe4552, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 1f51395fbcac9df4a8a3d61e81fe4552, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 1f51395fbcac9df4a8a3d61e81fe4552, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 1f51395fbcac9df4a8a3d61e81fe4552, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 1f51395fbcac9df4a8a3d61e81fe4552, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 1f51395fbcac9df4a8a3d61e81fe4552, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 100000, guid: 1f51395fbcac9df4a8a3d61e81fe4552, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 983639252}
-  m_SourcePrefab: {fileID: 100100000, guid: 1f51395fbcac9df4a8a3d61e81fe4552, type: 3}
 --- !u!1 &1942556951
 GameObject:
   m_ObjectHideFlags: 0
@@ -5777,4 +5765,3 @@ SceneRoots:
   - {fileID: 1636837445}
   - {fileID: 1360481981}
   - {fileID: 1400473276}
-  - {fileID: 1933565767}
