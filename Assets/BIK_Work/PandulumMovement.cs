@@ -6,9 +6,9 @@ using UnityEngine;
 public class PandulumMovement : MonoBehaviour {
     #region serialized fields
 
-    [Tooltip("È¸Àü ½Ã°£ == ¼Óµµ¿Í ¹İºñ·Ê")]
+    [Tooltip("íšŒì „ ì‹œê°„ == ì†ë„ì™€ ë°˜ë¹„ë¡€")]
     [SerializeField] private float _duration = 1f;
-    [Tooltip("¿òÁ÷ÀÓ ¹æ½Ä")]
+    [Tooltip("ì›€ì§ì„ ë°©ì‹")]
     [SerializeField] private Ease _ease = Ease.Linear;
 
     #endregion // serialized fields
