@@ -33,6 +33,10 @@ public class FadeOutPanel : MonoBehaviour
         GameOver();
     }
     
+    /// <summary>
+    /// public으로 설정하여 게임 매니저에서 직접 호출해도 되고, SetActive(true)를 통해 호출하는 것도 가능
+    /// GameOver 조건이 충족되면 화면이 어두워지고 게임오버 UI 출력
+    /// </summary>
     public void GameOver()
     {
         StartCoroutine(FadeIn());
