@@ -6,9 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/BJW_Work/Scene/TitleScene.unity
-    guid: e81e75f6161b62b4c807b8823034d7db
+    path: Assets/01.Scenes/StartScene.unity
+    guid: 4630bb17e8112fe4fa9712eecf192e20
   - enabled: 1
-    path: Assets/BJW_Work/Scene/Map.unity
-    guid: f521057ad14c314469b49679955546a4
+    path: Assets/01.Scenes/TestScene.unity
+    guid: 855e0bfdd40c7464cb1a1ae5cf61521f
   m_configObjects: {}
