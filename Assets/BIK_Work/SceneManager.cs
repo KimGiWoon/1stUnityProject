@@ -51,5 +51,13 @@ public class SceneManager : MonoBehaviour {
         UnityEngine.SceneManagement.SceneManager.LoadScene(sceneName);
     }
 
+    public void LoadMainScene() {
+        LoadScene("TestScene");
+    }
+
+    public void LoadIngameScene() {
+        LoadScene("Ingame");
+    }
+
     #endregion // public funcs
 }
