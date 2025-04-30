@@ -7,12 +7,21 @@ using UnityEngine.UI;
 
 public class FadeOutPanel : MonoBehaviour
 {
+    [Header("Drag&Drop")]
+    [Tooltip("GameOverUICanvas의 하위 객체 드래그")] 
     [SerializeField] private Image fadeOutPanel;
     [SerializeField] private TextMeshProUGUI gameOverText;
     [SerializeField] private TextMeshProUGUI restartBtnText;
     [SerializeField] private TextMeshProUGUI exitBtnText;
-    [SerializeField] private float fadeDuration = 1f;
     
+    [Header("Number")]
+    [Tooltip("Fade-In 연출 시간")] 
+    [SerializeField] private float fadeDuration = 1f;
+
+    private void Awake()
+    {
+        
+    }
     
     private void Start()
     {
@@ -56,5 +65,10 @@ public class FadeOutPanel : MonoBehaviour
             exitBtnText.color = btnColor;
             yield return null;
         }
+    }
+
+    private void Init()
+    {
+
     }
 }
