@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,23 +7,30 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float moveSpeed;
     [SerializeField] float jumpForce;
     [SerializeField] private Rigidbody rb;
-    private bool isGround;
     [SerializeField] float fallMultiplier = 2.5f;
-
+    private bool isGround;
+    private Animator animator;
 
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        animator = GetComponent<Animator>();
     }
 
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && isGround)
+        if (Input.GetKeyDown(KeyCode.Space) && isGround) // ë•…ì— ë¶™ì–´ ìˆì„ ë•Œ ì í”„í•˜ê²Œ êµ¬í˜„
         {
             Jump();
         }
+
+        else
+        {
+            animator.SetBool("Jump", false);
+        }
+
 
         if (rb.velocity.y < 0)
         {
@@ -31,31 +38,39 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void FixedUpdate() // ¡Ú ¹°¸® ±â¹İÀº FixedUpdate·Î!
+
+    private void FixedUpdate() // å ì™ì˜™ å ì™ì˜™å ì™ì˜™ å ì™ì˜™å ì™ì˜™å ?FixedUpdateå ì™ì˜™!
+
+    
+
     {
         Move();
     }
 
 
-    void Move() // wasd ¹æÇâÅ°¿¡ µû¸¥ ¿òÁ÷ÀÓ ±¸Çö
+
+    void Move() // wasd å ì™ì˜™å ì™ì˜™í‚¤å ì™ì˜™ å ì™ì˜™å ì™ì˜™ å ì™ì˜™å ì™ì˜™å ì™ì˜™ å ì™ì˜™å ì™ì˜™
+
+    
+
     {
 
         float moveX = Input.GetAxis("Horizontal");
         float moveZ = Input.GetAxis("Vertical");
 
-        Vector3 front = new Vector3(moveX, 0f, moveZ).normalized; // ÀÔ·Â ¹æÇâÀ» º¤ÅÍ·Î ¸¸µé¾îÁÜ. Ä«¸Ş¶ó ¹æÇâ¿¡ µû¶ó µÉ ¼ö ÀÖÀ½.
+        Vector3 front = new Vector3(moveX, 0f, moveZ).normalized; // å ìŒ‰ë¤„ì˜™ å ì™ì˜™å ì™ì˜™å ì™ì˜™ å ì™ì˜™å ì‹¶ë¤„ì˜™ å ì™ì˜™å ì™ì˜™å ì™ì˜™å ? ì¹´å ìŒ¨ë°ì˜™ å ì™ì˜™å ì©ì— å ì™ì˜™å ì™ì˜™ å ì™ì˜™ å ì™ì˜™ å ì™ì˜™å ì™ì˜™.
 
-        if (front != Vector3.zero) // ¿òÁ÷ÀÓÀÌ 0ÀÌ ¾Æ´Ï¸é
+        if (front != Vector3.zero) // å ì™ì˜™å ì™ì˜™å ì™ì˜™å ì™ì˜™ 0å ì™ì˜™ å ì‹£ë‹ˆëªŒì˜™
         {
-            Vector3 camForward = Camera.main.transform.forward; // Ä«¸Ş¶ó ¾Õ ¹æÇâ
-            Vector3 camRight = Camera.main.transform.right; // Ä«¸Ş¶ó ¿À¸¥ÂÊ ¹æÇâ
+            Vector3 camForward = Camera.main.transform.forward; // ì¹´å ìŒ¨ë°ì˜™ å ì™ì˜™ å ì™ì˜™å ì™ì˜™
+            Vector3 camRight = Camera.main.transform.right; // ì¹´å ìŒ¨ë°ì˜™ å ì™ì˜™å ì™ì˜™å ì™ì˜™ å ì™ì˜™å ì™ì˜™
 
-            camForward.y = 0f; // Ä«¸Ş¶ó yÃà °íÁ¤
-            camRight.y = 0f; // Ä«¸Ş¶ó yÃà °íÁ¤
-            camForward.Normalize(); // º¤ÅÍ´Â °íÁ¤ÇÏ°í ¹æÇâ¸¸
-            camRight.Normalize(); // º¤ÅÍ´Â °íÁ¤ÇÏ°í ¹æÇâ¸¸
+            camForward.y = 0f; // ì¹´å ìŒ¨ë°ì˜™ yå ì™ì˜™ å ì™ì˜™å ì™ì˜™
+            camRight.y = 0f; // ì¹´å ìŒ¨ë°ì˜™ yå ì™ì˜™ å ì™ì˜™å ì™ì˜™
+            camForward.Normalize(); // å ì™ì˜™å ì‹¶ëŒì˜™ å ì™ì˜™å ì™ì˜™å ì‹¹ê³¤ì˜™ å ì™ì˜™å ì©ë§Œ
+            camRight.Normalize(); // å ì™ì˜™å ì‹¶ëŒì˜™ å ì™ì˜™å ì™ì˜™å ì‹¹ê³¤ì˜™ å ì™ì˜™å ì©ë§Œ
 
-            Vector3 moveDir = camForward * front.z + camRight * front.x; // ÀÔ·Â°ªÀ» Ä«¸Ş¶ó ¹æÇâ ±âÁØÀ¸·Î º¯È¯
+            Vector3 moveDir = camForward * front.z + camRight * front.x; // å ìŒ‰ë ¥ê³¤ì˜™å ì™ì˜™ ì¹´å ìŒ¨ë°ì˜™ å ì™ì˜™å ì™ì˜™ å ì™ì˜™å ì™ì˜™å ì™ì˜™å ì™ì˜™ å ì™ì˜™í™˜
 
 
             rb.AddForce(moveDir * moveSpeed, ForceMode.Force);
@@ -65,23 +80,26 @@ public class PlayerController : MonoBehaviour
     void Jump()
     {
         rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        animator.SetBool("Jump", true);
+        Debug.Log("isGroundëŠ” false");
+        isGround = false;
+        animator.SetBool("OnGround", false);
     }
 
-    private void OnCollisionEnter(Collision collision) // ¶¥¿¡ Á¢ÃËÇØ ÀÖÀ» ¶§
+
+
+    private void OnCollisionEnter(Collision collision) // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
     {
         if (collision.gameObject.CompareTag("Ground"))
         {
+            Debug.Log("isGroundëŠ” true");
             isGround = true;
+            animator.SetBool("OnGround", true);
         }
     }
 
-    private void OnCollisionExit(Collision collision) // ¶¥¿¡¼­ ¶³¾îÁ³À» ¶§
-    {
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            isGround = false;
-        }
-    }
 
 
 }
+
+
