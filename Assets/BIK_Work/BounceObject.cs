@@ -5,7 +5,7 @@ using UnityEngine;
 public class BounceObject : MonoBehaviour {
     #region serialized fields
 
-    [Tooltip("Æ¨±â´Â ¼¼±â")]
+    [Tooltip("íŠ•ê¸°ëŠ” ì„¸ê¸°")]
     [SerializeField] private float bounceForce = 10f;
 
     #endregion // serialized fields

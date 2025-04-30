@@ -6,11 +6,11 @@ using UnityEngine;
 public class CylinderMovement : MonoBehaviour {
     #region serialized fields
 
-    [Tooltip("ÀÌµ¿¹üÀ§")]
+    [Tooltip("ì´ë™ë²”ìœ„")]
     [SerializeField] private float _distance = 1f;
-    [Tooltip("ÀÌµ¿½Ã°£ = ¼Óµµ¿Í ¹İºñ·Ê")]
+    [Tooltip("ì´ë™ì‹œê°„ = ì†ë„ì™€ ë°˜ë¹„ë¡€")]
     [SerializeField] private float _duration = 1f;
-    [Tooltip("ÀÌµ¿ ¹æ½Ä")]
+    [Tooltip("ì´ë™ ë°©ì‹")]
     [SerializeField] private Ease _ease = Ease.Linear;
 
     #endregion // serialized fields

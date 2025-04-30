@@ -5,11 +5,11 @@ using UnityEngine;
 public class MovingTile : MonoBehaviour {
     #region serialized fields
 
-    [Tooltip("ÀÌµ¿ ¹æÇâ // X : ÁÂ¿ì, Z : ¾ÕµÚ")]
+    [Tooltip("ì´ë™ ë°©í–¥ // X : ì¢Œìš°, Z : ì•ë’¤")]
     [SerializeField] private Vector3 _moveDirection = Vector3.left;
-    [Tooltip("ÀÌµ¿ ¼Óµµ")]
+    [Tooltip("ì´ë™ ì†ë„")]
     [SerializeField] private float _moveForce = 100f;
-    [Tooltip("ÇÃ·¹ÀÌ¾î ·¹ÀÌ¾î // ´ê´Â ¿ÀºêÁ§Æ® ÀüºÎ Àû¿ëÇÏ°í½ÍÀ¸¸é Everything")]
+    [Tooltip("í”Œë ˆì´ì–´ ë ˆì´ì–´ // ë‹¿ëŠ” ì˜¤ë¸Œì íŠ¸ ì „ë¶€ ì ìš©í•˜ê³ ì‹¶ìœ¼ë©´ Everything")]
     [SerializeField] private LayerMask _playerLayer;
 
     #endregion // serialized fields

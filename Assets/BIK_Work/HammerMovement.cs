@@ -6,9 +6,9 @@ using UnityEngine;
 public class HammerMovement : MonoBehaviour {
     #region serialized fields
 
-    [Tooltip("È¸Àü ½Ã°£ == ¼Óµµ¿Í ¹İºñ·Ê")]
+    [Tooltip("íšŒì „ ì‹œê°„ == ì†ë„ì™€ ë°˜ë¹„ë¡€")]
     [SerializeField] private float _duration = 1f;
-    [Tooltip("È¸Àü ¹æÇâ")]
+    [Tooltip("íšŒì „ ë°©í–¥")]
     [SerializeField] private bool _isClockwise = true;
 
     #endregion // serialized fields
