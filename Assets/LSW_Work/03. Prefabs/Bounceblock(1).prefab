@@ -95,7 +95,7 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 8
-  force: 4
+  force: 7
 --- !u!65 &2611173844000842411
 BoxCollider:
   m_ObjectHideFlags: 0
