@@ -6,9 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/01.Scenes/StartScene.unity
-    guid: 4630bb17e8112fe4fa9712eecf192e20
+    path: Assets/KGW_Work/Scene/KGW_Test Scene.unity
+    guid: c6a6804f493705347b87af48fff185f1
   - enabled: 1
-    path: Assets/01.Scenes/TestScene.unity
-    guid: 855e0bfdd40c7464cb1a1ae5cf61521f
+    path: Assets/KGW_Work/Scene/ClearScene.unity
+    guid: 761e8d96684c42f42ab563f8be85f8c1
   m_configObjects: {}

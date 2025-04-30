@@ -1576,7 +1576,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 2
   jumpForce: 5
-  divingForce: 7
   rb: {fileID: 0}
 --- !u!54 &422313698
 Rigidbody:
@@ -5968,7 +5967,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2056326065}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4deaa5dc5867abe4783d5cb05136299d, type: 3}
+  m_Script: {fileID: 11500000, guid: 4d5f542adf97eeb4487c62a03484af6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &2056498256 stripped

@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening.Core.Easing;
@@ -9,7 +9,7 @@ public class SaveManager : MonoBehaviour
     #region Singleton
 
     private static SaveManager instance;
-    public static SaveManager Instance  // Save Manager »ı¼º
+    public static SaveManager Inst  // Save Manager ìƒì„±
     {
         get
         {
@@ -30,7 +30,7 @@ public class SaveManager : MonoBehaviour
 
     #endregion
 
-    const int rankListMaxCount = 30;
+    const int rankListMaxCount = 10;
 
     #region Static Fields
 
@@ -47,12 +47,12 @@ public class SaveManager : MonoBehaviour
     {
         if (instance == null) 
         {
-            instance = this;    // Ã³À½ »ı¼ºÇÑ Manager Setting
+            instance = this;    // ì²˜ìŒ ìƒì„±í•œ Manager Setting
             DontDestroyOnLoad(gameObject);
         }
         else if (instance != this)
         {
-            Destroy(gameObject); // Áßº¹ »ı¼º ½Ã »èÁ¦
+            Destroy(gameObject); // ì¤‘ë³µ ìƒì„± ì‹œ ì‚­ì œ
         }
     }
 
@@ -60,57 +60,60 @@ public class SaveManager : MonoBehaviour
 
     #region Public Funcs
 
-    // ÇÃ·¹ÀÌ¾îÀÇ ÀÌ¸§ ÀúÀå
+    // í”Œë ˆì´ì–´ì˜ ì´ë¦„ ì €ì¥
     public void SaveDate(string playerName)
     {
-        //PlayerPrefs.SetInt(playerScoreKey, 100);  // ÇÃ·¹ÀÌ¾î Á¡¼ö ¹Ì±¸Çö
+        //PlayerPrefs.SetInt(playerScoreKey, 100);  // í”Œë ˆì´ì–´ ì ìˆ˜ ë¯¸êµ¬í˜„
         PlayerPrefs.SetString(playerStringKey, playerName);
         PlayerPrefs.Save();
     }
 
     public void GetData(out string playerName)
     {
-        //playerScore = PlayerPrefs.GetInt(playerScoreKey, 0);  // ÇÃ·¹ÀÌ¾î Á¡¼ö ¹Ì±¸Çö
+        //playerScore = PlayerPrefs.GetInt(playerScoreKey, 0);  // í”Œë ˆì´ì–´ ì ìˆ˜ ë¯¸êµ¬í˜„
         playerName = PlayerPrefs.GetString(playerStringKey, "DefaultName");
     }
 
-    // ÇÃ·¹ÀÌ Å¸ÀÓ ÀúÀå
+    // í”Œë ˆì´ íƒ€ì„ ì €ì¥
     public void SavePlayTime(ref float startTime, ref float endTime)
     {
-        float totalPlayTime = endTime - startTime; // ÃÑ ÇÃ·¹ÀÌ ½Ã°£
-        PlayerPrefs.SetFloat(playTimeKey, totalPlayTime);   // ÇÃ·¹ÀÌ Å¸ÀÓ Å°¿¡ ÃÑ ÇÃ·¹ÀÌ ½Ã°£ ÀúÀå
+        float totalPlayTime = endTime - startTime; // ì´ í”Œë ˆì´ ì‹œê°„
+        PlayerPrefs.SetFloat(playTimeKey, totalPlayTime);   // í”Œë ˆì´ íƒ€ì„ í‚¤ì— ì´ í”Œë ˆì´ ì‹œê°„ ì €ì¥
         PlayerPrefs.Save();
     }
 
     public float GetPlayTime()
     {
-        return PlayerPrefs.GetFloat(playTimeKey, 0);    // ÇÃ·¹ÀÌ ½Ã°£ÀÌ ¾øÀ¸¸é 0 ¹İÈ¯
+        return PlayerPrefs.GetFloat(playTimeKey, 0);    // í”Œë ˆì´ ì‹œê°„ì´ ì—†ìœ¼ë©´ 0 ë°˜í™˜
     }
 
-    // ¸¶Áö¸· ÇÃ·¹ÀÌ ³¯Â¥ ÀúÀå
-    public void SaveLastPlayDate()
-    {
-        string playdate = System.DateTime.Now.ToString("MM-dd");    // ¸¶Áö¸· ÇÃ·¹ÀÌ ¿ù - ÀÏ ÀúÀå
-        PlayerPrefs.SetString(lastPlayDateKey, playdate);
-        PlayerPrefs.Save();
-    }
-
-    public string GetLastPlayTime()
-    {
-        return PlayerPrefs.GetString(lastPlayDateKey, "NotExist");  // ¸¶Áö¸· ÇÃ·¹ÀÌ µ¥ÀÌÅÍ°¡ ¾øÀ¸¸é "Á¸³»ÇÏÁö ¾Ê´Â´Ù"´Â ¹®±¸ Ãâ·Â
-    }
-
+    // ë­í‚¹ ë°ì´í„° ì €ì¥
     public void SaveRankingData()
     {
-        float ClearPlayTime = GetPlayTime();    // ÇÃ·¹ÀÌ Å¸ÀÓ °¡Á®¿À±â
+        float ClearPlayTime = GetPlayTime();    // í”Œë ˆì´ íƒ€ì„ ê°€ì ¸ì˜¤ê¸°
 
         List<(string name, float time)> rankList = new List<(string name, float time)>();
 
-        for(int i =0; i < rankListMaxCount; i++)
+        for (int i = 0; i < rankListMaxCount; i++)
         {
             //string name = PlayerPrefs.get
         }
     }
 
+    //// ë§ˆì§€ë§‰ í”Œë ˆì´ ë‚ ì§œ ì €ì¥
+    //public void SaveLastPlayDate()
+    //{
+    //    string playdate = System.DateTime.Now.ToString("MM-dd");    // ë§ˆì§€ë§‰ í”Œë ˆì´ ì›” - ì¼ ì €ì¥
+    //    PlayerPrefs.SetString(lastPlayDateKey, playdate);
+    //    PlayerPrefs.Save();
+    //}
+
+    //public string GetLastPlayTime()
+    //{
+    //    return PlayerPrefs.GetString(lastPlayDateKey, "NotExist");  // ë§ˆì§€ë§‰ í”Œë ˆì´ ë°ì´í„°ê°€ ì—†ìœ¼ë©´ "ì¡´ë‚´í•˜ì§€ ì•ŠëŠ”ë‹¤"ëŠ” ë¬¸êµ¬ ì¶œë ¥
+    //}
+
     #endregion // Public Funcs
+
+
 }
