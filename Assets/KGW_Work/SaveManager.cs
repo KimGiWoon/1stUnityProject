@@ -19,7 +19,7 @@ public class SaveManager : MonoBehaviour
 
                 if (instance == null)
                 {
-                    GameObject obj = new GameObject(nameof(SaveManager));
+                    GameObject obj = new GameObject("SaveManager");
                     instance = obj.AddComponent<SaveManager>();
                     DontDestroyOnLoad(obj); 
                 }
@@ -30,14 +30,14 @@ public class SaveManager : MonoBehaviour
 
     #endregion
 
+    const int rankListMaxCount = 30;
+
     #region Static Fields
 
     private static string playerStringKey = "PlayerName";   // Player Name Key
-    private static string playerScoreKey = "PlayerScore";   // Player Score Key
+    //private static string playerScoreKey = "PlayerScore";   // Player Score Key
     private static string playTimeKey = "PlayTime";         // Play Time Key
-    private float startTime;    // 플레이 시작 시간
-    private float endTime;      // 플레이 완료 시간
-    private float totalPlayTime;    // 총 플레이 시간
+    private static string lastPlayDateKey = "LastPlayDate";         // Play Time Key
 
     #endregion
 
@@ -58,54 +58,59 @@ public class SaveManager : MonoBehaviour
 
     #endregion
 
-    #region Start Timer On
-
-    // 시작과 동시에 타이머 Start
-    private void Start()
-    {
-        StartPlayTimer();
-    }
-
-    #endregion  // Start Timer On
-
     #region Public Funcs
 
-    public void SaveDate()
+    // 플레이어의 이름 저장
+    public void SaveDate(string playerName)
     {
-        PlayerPrefs.SetInt(playerScoreKey, 100);
-        PlayerPrefs.SetString(playerStringKey, "Player1");
+        //PlayerPrefs.SetInt(playerScoreKey, 100);  // 플레이어 점수 미구현
+        PlayerPrefs.SetString(playerStringKey, playerName);
         PlayerPrefs.Save();
     }
 
-    public void GetData(ref int playerScore, ref string playerName)
+    public void GetData(out string playerName)
     {
-        playerScore = PlayerPrefs.GetInt(playerScoreKey, 0);
+        //playerScore = PlayerPrefs.GetInt(playerScoreKey, 0);  // 플레이어 점수 미구현
         playerName = PlayerPrefs.GetString(playerStringKey, "DefaultName");
     }
 
     // 플레이 타임 저장
-    public void SavePlayTime()
+    public void SavePlayTime(ref float startTime, ref float endTime)
     {
-        endTime = Time.time;
-        totalPlayTime = endTime - startTime;
+        float totalPlayTime = endTime - startTime; // 총 플레이 시간
         PlayerPrefs.SetFloat(playTimeKey, totalPlayTime);   // 플레이 타임 키에 총 플레이 시간 저장
         PlayerPrefs.Save();
     }
 
     public float GetPlayTime()
     {
-        return PlayerPrefs.GetFloat(playTimeKey, 0);
+        return PlayerPrefs.GetFloat(playTimeKey, 0);    // 플레이 시간이 없으면 0 반환
+    }
+
+    // 마지막 플레이 날짜 저장
+    public void SaveLastPlayDate()
+    {
+        string playdate = System.DateTime.Now.ToString("MM-dd");    // 마지막 플레이 월 - 일 저장
+        PlayerPrefs.SetString(lastPlayDateKey, playdate);
+        PlayerPrefs.Save();
+    }
+
+    public string GetLastPlayTime()
+    {
+        return PlayerPrefs.GetString(lastPlayDateKey, "NotExist");  // 마지막 플레이 데이터가 없으면 "존내하지 않는다"는 문구 출력
+    }
+
+    public void SaveRankingData()
+    {
+        float ClearPlayTime = GetPlayTime();    // 플레이 타임 가져오기
+
+        List<(string name, float time)> rankList = new List<(string name, float time)>();
+
+        for(int i =0; i < rankListMaxCount; i++)
+        {
+            //string name = PlayerPrefs.get
+        }
     }
 
     #endregion // Public Funcs
-
-    #region Private Funcs
-
-    // Start Timer Method
-    private void StartPlayTimer()
-    {
-        startTime = Time.time;
-    }
-
-    #endregion Private Funcs
 }
