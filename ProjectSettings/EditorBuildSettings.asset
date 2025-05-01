@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/BJW_Work/Scene/TitleScene.unity
+    path: Assets/01.Scenes/TitleScene.unity
     guid: e81e75f6161b62b4c807b8823034d7db
   - enabled: 1
     path: Assets/BJW_Work/Scene/Map.unity
