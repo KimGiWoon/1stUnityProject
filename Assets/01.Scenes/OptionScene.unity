@@ -917,6 +917,9 @@ MonoBehaviour:
   bgmSlider: {fileID: 983386954}
   sensitivitySlider: {fileID: 1780534523}
   brightnessOverlay: {fileID: 728102491}
+  initialBrightness: 0
+  initialBGM: 0
+  initialSensitivity: 0
 --- !u!1 &707066948
 GameObject:
   m_ObjectHideFlags: 0
@@ -1067,6 +1070,9 @@ MonoBehaviour:
   bgmSlider: {fileID: 983386954}
   sensitivitySlider: {fileID: 1780534523}
   brightnessOverlay: {fileID: 728102491}
+  initialBrightness: 0
+  initialBGM: 0
+  initialSensitivity: 0
 --- !u!1 &728102489
 GameObject:
   m_ObjectHideFlags: 0
@@ -2084,6 +2090,9 @@ MonoBehaviour:
   bgmSlider: {fileID: 983386954}
   sensitivitySlider: {fileID: 1780534523}
   brightnessOverlay: {fileID: 728102491}
+  initialBrightness: 0
+  initialBGM: 0
+  initialSensitivity: 0
 --- !u!4 &1246176129
 Transform:
   m_ObjectHideFlags: 0
