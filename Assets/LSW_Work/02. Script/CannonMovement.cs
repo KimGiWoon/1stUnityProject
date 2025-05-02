@@ -62,6 +62,7 @@ public class CannonMovement : MonoBehaviour
         Fruit instance = pool.GetPool();
         instance.transform.position = transform.position;
         instance.GetComponent<Rigidbody>().velocity = transform.forward * moveSpeed;
+        instance.GetComponent<Rigidbody>().AddTorque(transform.right * 100f);  // Z축 기준 회전 (예: 드릴처럼)
     }
 
     private void Init()
