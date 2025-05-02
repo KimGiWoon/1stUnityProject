@@ -4,5 +4,11 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/KGW_Work/Scene/ClearScene.unity
+    guid: 761e8d96684c42f42ab563f8be85f8c1
+  - enabled: 1
+    path: Assets/KGW_Work/Scene/KGW_Test Scene.unity
+    guid: c6a6804f493705347b87af48fff185f1
   m_configObjects: {}
