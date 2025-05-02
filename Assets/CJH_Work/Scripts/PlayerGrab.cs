@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,18 +8,22 @@ public class PlayerGrab : MonoBehaviour
     [SerializeField] LayerMask grabbableLayer; // 잡을 수 있는 레이어
     [SerializeField] float climbJumpForce = 2f; // 오르는 힘
     [SerializeField] float climbSpeed = 2f; // 클라이밍 스피드
+    [SerializeField] float climbRange = 0.05f; // 클라이밍 범위
     public KeyCode grabKey = KeyCode.E; // 잡는 키 상호작용
     public KeyCode jumpKey = KeyCode.Space; // 점프 키 상호작용
     private float grabStartY; // 벽 잡은 순간 플레이어 높이 저장
-    [SerializeField] float climbRange = 0.05f; // 클라이밍 범위
+    public bool IsGrabbing => isGrab; // 읽기 전용 프로퍼티
+    [SerializeField] private Transform grabPoint; // 손위치
 
-
+    private Animator animator;
     private bool isGrab = false;
     private Rigidbody myBody;
 
     void Start()
     {
         myBody = GetComponent<Rigidbody>();
+        myBody = GetComponent<Rigidbody>();
+        animator = GetComponent<Animator>();
     }
 
     void Update()
@@ -54,8 +58,9 @@ public class PlayerGrab : MonoBehaviour
 
     void TryGrab()
     {
+
         RaycastHit isObject; // 레이캐스트로 오브젝트 판별
-        Vector3 rayOrigin = transform.position;
+        Vector3 rayOrigin = grabPoint.position;
         Vector3 rayDirection = Camera.main.transform.forward;
 
         if (Physics.Raycast(rayOrigin, rayDirection, out isObject, grabRange, grabbableLayer))
@@ -63,8 +68,7 @@ public class PlayerGrab : MonoBehaviour
             float hitY = isObject.point.y;
             float myY = transform.position.y;
 
-
-            if (hitY >= myY - climbRange && hitY <= myY + climbRange) // Ray에 맞은 이후, 범위 안에 있는지 체크
+            if(true)//if (hitY >= myY - climbRange && hitY <= myY + climbRange) // Ray에 맞은 이후, 범위 안에 있는지 체크
             {
                 isGrab = true; // 그랩 상태
                 myBody.useGravity = false; // 중력 해제
@@ -80,8 +84,6 @@ public class PlayerGrab : MonoBehaviour
             }
         }
     }
-
-
     void UnTryGrab()
     {
         if (isGrab) // 그랩상태이면
@@ -90,7 +92,6 @@ public class PlayerGrab : MonoBehaviour
             myBody.useGravity = true; // 중력 적용
         }
     }
-
     void Climbing()
     {
         {
@@ -101,7 +102,7 @@ public class PlayerGrab : MonoBehaviour
             float maxY = grabStartY + climbRange;
 
             RaycastHit hit;
-            Vector3 rayOrigin = transform.position;
+            Vector3 rayOrigin = grabPoint.position;
             Vector3 rayDirection = Camera.main.transform.forward; // 현재 벽에 여전히 붙어있는지 확인
 
             if (!Physics.Raycast(rayOrigin, rayDirection, out hit, grabRange, grabbableLayer)) // 벽에서 떨어지게 되면
@@ -140,21 +141,25 @@ public class PlayerGrab : MonoBehaviour
         isGrab = false;
         myBody.useGravity = true;
         myBody.velocity = new Vector3(myBody.velocity.x, climbJumpForce, myBody.velocity.z);
+        animator.SetBool("Jump", true);
+        animator.SetBool("OnGround", false);
     }
 
     void DrawGrabRay() // 확인용 코드
     {
         RaycastHit hit;
-        Vector3 rayOrigin = transform.position;
+        Vector3 rayOrigin = grabPoint.position;
         Vector3 rayDirection = Camera.main.transform.forward;
 
         if (Physics.Raycast(rayOrigin, rayDirection, out hit, grabRange, grabbableLayer))
         {
             Debug.DrawRay(rayOrigin, rayDirection * grabRange, Color.green);
+            Debug.Log("벽 감지됨!", this);
         }
         else
         {
             Debug.DrawRay(rayOrigin, rayDirection * grabRange, Color.red);
+            Debug.Log("벽 없음...", this);
         }
     }
 
