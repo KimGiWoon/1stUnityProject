@@ -8,6 +8,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float jumpForce;
     [SerializeField] private Rigidbody rb;
     [SerializeField] float fallMultiplier = 2.5f;
+    [SerializeField] float acceleration = 20f;
+    [SerializeField] float deceleration = 15f;
     private bool isGround;
     private Animator animator;
 
@@ -61,32 +63,35 @@ public class PlayerController : MonoBehaviour
             camForward.Normalize();
             camRight.Normalize();
 
-            Vector3 moveDir = camForward * inputDir.z + camRight * inputDir.x;
+            Vector3 moveDir = (camForward * inputDir.z + camRight * inputDir.x).normalized;
             Vector3 targetVelocity = moveDir * moveSpeed;
 
-            // 현재 속도를 목표 속도에 맞춰 부드럽게 이동
-            Vector3 velocityChange = targetVelocity - new Vector3(velocity.x, 0, velocity.z);
-            rb.AddForce(velocityChange, ForceMode.VelocityChange);
+            // ✅ 가속 적용
+            Vector3 newVelocity = Vector3.MoveTowards(horizontalVelocity, targetVelocity, acceleration * Time.fixedDeltaTime);
+            rb.velocity = new Vector3(newVelocity.x, velocity.y, newVelocity.z);
 
             Quaternion targetRotation = Quaternion.LookRotation(moveDir);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 10f);
-
-            animator.SetFloat("Forward", horizontalVelocity.magnitude);
         }
         else
         {
-            // 멈출 땐 수평 속도를 서서히 줄임
-            Vector3 reducedVelocity = Vector3.MoveTowards(horizontalVelocity, Vector3.zero, moveSpeed * Time.fixedDeltaTime);
+            // ✅ 감속 적용
+            Vector3 reducedVelocity = Vector3.MoveTowards(horizontalVelocity, Vector3.zero, deceleration * Time.fixedDeltaTime);
             rb.velocity = new Vector3(reducedVelocity.x, velocity.y, reducedVelocity.z);
-            animator.SetFloat("Forward", horizontalVelocity.magnitude);
         }
+
+        // ✅ 현재 속도 반영해서 애니메이션 적용
+        Vector3 currentHorizontal = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+        animator.SetFloat("Forward", currentHorizontal.magnitude);
     }
 
     void Jump()
     {
-        rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        Vector3 currentVelocity = rb.velocity;
+        currentVelocity.y = 0f; // 기존 y속도를 제거하여 중첩 방지
+        rb.velocity = currentVelocity + Vector3.up * jumpForce;
+
         animator.SetBool("Jump", true);
-        Debug.Log("isGround는 false");
         isGround = false;
         animator.SetBool("OnGround", false);
     }
