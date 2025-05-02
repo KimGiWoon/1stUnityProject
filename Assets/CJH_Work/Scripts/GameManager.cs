@@ -1,4 +1,4 @@
-﻿using DG.Tweening.Core.Easing;
+using DG.Tweening.Core.Easing;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -79,6 +79,8 @@ public class GameManager : MonoBehaviour
     public void OnPlayerDied()
     {
         Debug.Log("GameManager: 플레이어가 사망하였다!");
+
+        
 
         StartCoroutine(RespawnCoroutine());
 
