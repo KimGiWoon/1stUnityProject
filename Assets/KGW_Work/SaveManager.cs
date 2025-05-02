@@ -31,7 +31,7 @@ public class SaveManager : MonoBehaviour
 
     #endregion
 
-    const int rankListMaxCount = 10;
+    const int rankListMaxCount = 10;    // 랭킹 표현 순위
 
     #region Static Fields
 
@@ -77,9 +77,8 @@ public class SaveManager : MonoBehaviour
     }
 
     // 플레이 타임 저장
-    public void SavePlayTime(ref float startTime, ref float endTime)
+    public void SavePlayTime(float totalPlayTime)
     {
-        float totalPlayTime = endTime - startTime; // 총 플레이 시간
         PlayerPrefs.SetFloat(playTimeKey, totalPlayTime);   // 플레이 타임 키에 총 플레이 시간 저장
         PlayerPrefs.Save();
     }
@@ -89,65 +88,82 @@ public class SaveManager : MonoBehaviour
         return PlayerPrefs.GetFloat(playTimeKey, 0);    // 플레이 시간이 없으면 0 반환
     }
 
-    // 랭킹 데이터 저장
-    public void SaveRankingData()
+    public void SaveRankingData(string playerName, float playTime)
     {
-        string playerName = GetData(); //PlayerPrefs.GetString(playerStringKey, "DefaultName");  // Player 가져오기
-        float clearPlayTime = GetPlayTime();    // 플레이 타임 가져오기
-
         List<(string name, float time)> rankList = new List<(string name, float time)>();
 
         for (int i = 0; i < rankListMaxCount; i++)
         {
-            string name = PlayerPrefs.GetString(string.Format(playerStringKey, i), "");
-            float time = PlayerPrefs.GetFloat(string.Format(playTimeKey, i), -1f);
+            string name = PlayerPrefs.GetString($"PlayerName_{i}", "");
+            float time = PlayerPrefs.GetFloat($"PlayTime_{i}", -1f);
 
             if (!string.IsNullOrEmpty(name) && time >= 0)
+            {
                 rankList.Add((name, time));
+            }
         }
 
         // 새 랭킹 추가
-        rankList.Add((playerName, clearPlayTime));
+        rankList.Add((playerName, playTime));
 
-        // 플레이타임 빠른 순으로 정렬
-        rankList = rankList.OrderBy(entry => entry.time).ToList();
+        // 정렬 및 상위 10개 유지
+        rankList = rankList.OrderBy(x => x.time).Take(rankListMaxCount).ToList();
 
-        // 상위 10명의 플레이어만 유지
-        if (rankList.Count > rankListMaxCount)
-            rankList = rankList.GetRange(0, rankListMaxCount);
-
-        // 저장
         for (int i = 0; i < rankListMaxCount; i++)
         {
             if (i < rankList.Count)
             {
-                PlayerPrefs.SetString(string.Format(playerStringKey, i), rankList[i].name);
-                PlayerPrefs.SetFloat(string.Format(playTimeKey, i), rankList[i].time);
+                PlayerPrefs.SetString($"PlayerName_{i}", rankList[i].name);
+                PlayerPrefs.SetFloat($"PlayTime_{i}", rankList[i].time);
             }
             else
             {
-                PlayerPrefs.DeleteKey(string.Format(playerStringKey, i));
-                PlayerPrefs.DeleteKey(string.Format(playTimeKey, i));
+                PlayerPrefs.DeleteKey($"PlayerName_{i}");
+                PlayerPrefs.DeleteKey($"PlayTime_{i}");
             }
         }
 
         PlayerPrefs.Save();
     }
 
-    //// 마지막 플레이 날짜 저장
-    //public void SaveLastPlayDate()
-    //{
-    //    string playdate = System.DateTime.Now.ToString("MM-dd");    // 마지막 플레이 월 - 일 저장
-    //    PlayerPrefs.SetString(lastPlayDateKey, playdate);
-    //    PlayerPrefs.Save();
-    //}
+    // 저장된 랭크 리스트 가져오기
+    public List<(string name, float time)> GetRankingData()
+    {
+        List<(string name, float time)> rankList = new List<(string name, float time)>();
 
-    //public string GetLastPlayTime()
-    //{
-    //    return PlayerPrefs.GetString(lastPlayDateKey, "NotExist");  // 마지막 플레이 데이터가 없으면 "존내하지 않는다"는 문구 출력
-    //}
+        for (int i = 0; i < rankListMaxCount; i++)
+        {
+            string name = PlayerPrefs.GetString($"PlayerName_{i}", "");
+            float time = PlayerPrefs.GetFloat($"PlayTime_{i}", -1f);
 
+            if (!string.IsNullOrEmpty(name) && time >= 0)
+            {
+                rankList.Add((name, time));
+            }
+            else
+            {
+                name = "Not ranking data.";
+                time = 0;
+                rankList.Add((name, time));
+            }
+        }
+
+        return rankList;
+    }
+
+    // 랭킹 리스트 초기화 
+    public void ClearRankingData()
+    {
+        // 리스트를 순회 하면서 키에 대한 내용 삭제
+        for (int i = 0; i < rankListMaxCount; i++)
+        {
+            PlayerPrefs.DeleteKey($"PlayerName_{i}");
+            PlayerPrefs.DeleteKey($"PlayTime_{i}");
+        }
+
+        // 정상 삭제 확인
+        PlayerPrefs.Save();
+        Debug.Log("랭킹 데이터 초기화 완료");
+    }
     #endregion // Public Funcs
-
-
 }
