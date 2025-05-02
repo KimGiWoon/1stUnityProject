@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -47,11 +47,13 @@ public class PlayerController : MonoBehaviour
         float moveX = Input.GetAxis("Horizontal");
         float moveZ = Input.GetAxis("Vertical");
 
+        Vector3 velocity = rb.velocity;
         Vector3 inputDir = new Vector3(moveX, 0f, moveZ).normalized;
+        Vector3 horizontalVelocity = new Vector3(velocity.x, 0f, velocity.z);
 
         if (inputDir != Vector3.zero)
         {
-            Vector3 camForward = Camera.main.transform.forward; // 카메라 기준 방향 계산
+            Vector3 camForward = Camera.main.transform.forward;
             Vector3 camRight = Camera.main.transform.right;
 
             camForward.y = 0f;
@@ -59,12 +61,24 @@ public class PlayerController : MonoBehaviour
             camForward.Normalize();
             camRight.Normalize();
 
-            Vector3 moveDir = camForward * inputDir.z + camRight * inputDir.x; // 입력값을 카메라 기준 방향에 맞춰 변환
+            Vector3 moveDir = camForward * inputDir.z + camRight * inputDir.x;
+            Vector3 targetVelocity = moveDir * moveSpeed;
 
-            rb.AddForce(moveDir * moveSpeed, ForceMode.Force); // 이동
+            // 현재 속도를 목표 속도에 맞춰 부드럽게 이동
+            Vector3 velocityChange = targetVelocity - new Vector3(velocity.x, 0, velocity.z);
+            rb.AddForce(velocityChange, ForceMode.VelocityChange);
 
-            Quaternion targetRotation = Quaternion.LookRotation(moveDir); // 회전 처리
+            Quaternion targetRotation = Quaternion.LookRotation(moveDir);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 10f);
+
+            animator.SetFloat("Forward", horizontalVelocity.magnitude);
+        }
+        else
+        {
+            // 멈출 땐 수평 속도를 서서히 줄임
+            Vector3 reducedVelocity = Vector3.MoveTowards(horizontalVelocity, Vector3.zero, moveSpeed * Time.fixedDeltaTime);
+            rb.velocity = new Vector3(reducedVelocity.x, velocity.y, reducedVelocity.z);
+            animator.SetFloat("Forward", horizontalVelocity.magnitude);
         }
     }
 
@@ -78,7 +92,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    private void OnCollisionEnter(Collision collision) 
+    private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Ground"))
         {
@@ -89,5 +103,3 @@ public class PlayerController : MonoBehaviour
     }
 
 }
-
-
