@@ -1,6 +1,7 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using DG.Tweening.Core.Easing;
 using UnityEngine;
 
@@ -35,9 +36,9 @@ public class SaveManager : MonoBehaviour
     #region Static Fields
 
     private static string playerStringKey = "PlayerName";   // Player Name Key
-    //private static string playerScoreKey = "PlayerScore";   // Player Score Key
     private static string playTimeKey = "PlayTime";         // Play Time Key
-    private static string lastPlayDateKey = "LastPlayDate";         // Play Time Key
+    //private static string playerScoreKey = "PlayerScore";   // Player Score Key
+    //private static string lastPlayDateKey = "LastPlayDate";         // Play Time Key
 
     #endregion
 
@@ -68,10 +69,11 @@ public class SaveManager : MonoBehaviour
         PlayerPrefs.Save();
     }
 
-    public void GetData(out string playerName)
+    public string GetData()
     {
         //playerScore = PlayerPrefs.GetInt(playerScoreKey, 0);  // 플레이어 점수 미구현
-        playerName = PlayerPrefs.GetString(playerStringKey, "DefaultName");
+        string playerName = PlayerPrefs.GetString(playerStringKey, "DefaultName");
+        return playerName;
     }
 
     // 플레이 타임 저장
@@ -90,14 +92,46 @@ public class SaveManager : MonoBehaviour
     // 랭킹 데이터 저장
     public void SaveRankingData()
     {
-        float ClearPlayTime = GetPlayTime();    // 플레이 타임 가져오기
+        string playerName = GetData(); //PlayerPrefs.GetString(playerStringKey, "DefaultName");  // Player 가져오기
+        float clearPlayTime = GetPlayTime();    // 플레이 타임 가져오기
 
         List<(string name, float time)> rankList = new List<(string name, float time)>();
 
         for (int i = 0; i < rankListMaxCount; i++)
         {
-            //string name = PlayerPrefs.get
+            string name = PlayerPrefs.GetString(string.Format(playerStringKey, i), "");
+            float time = PlayerPrefs.GetFloat(string.Format(playTimeKey, i), -1f);
+
+            if (!string.IsNullOrEmpty(name) && time >= 0)
+                rankList.Add((name, time));
         }
+
+        // 새 랭킹 추가
+        rankList.Add((playerName, clearPlayTime));
+
+        // 플레이타임 빠른 순으로 정렬
+        rankList = rankList.OrderBy(entry => entry.time).ToList();
+
+        // 상위 10명의 플레이어만 유지
+        if (rankList.Count > rankListMaxCount)
+            rankList = rankList.GetRange(0, rankListMaxCount);
+
+        // 저장
+        for (int i = 0; i < rankListMaxCount; i++)
+        {
+            if (i < rankList.Count)
+            {
+                PlayerPrefs.SetString(string.Format(playerStringKey, i), rankList[i].name);
+                PlayerPrefs.SetFloat(string.Format(playTimeKey, i), rankList[i].time);
+            }
+            else
+            {
+                PlayerPrefs.DeleteKey(string.Format(playerStringKey, i));
+                PlayerPrefs.DeleteKey(string.Format(playTimeKey, i));
+            }
+        }
+
+        PlayerPrefs.Save();
     }
 
     //// 마지막 플레이 날짜 저장
