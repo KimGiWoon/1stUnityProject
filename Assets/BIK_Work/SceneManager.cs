@@ -63,5 +63,10 @@ public class SceneManager : MonoBehaviour {
         LoadScene("OptionScene");
     }
 
+    public void LoadTitleScene()
+    {
+        LoadScene("TitleScene");
+    }
+
     #endregion // public funcs
 }
