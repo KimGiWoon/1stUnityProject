@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class IceTile : MonoBehaviour
 {
-    [SerializeField] private float iceDrag = 0f; // ¾óÀ½ À§¿¡¼­´Â 0
+    [SerializeField] private float iceDrag = 0f; // ì–¼ìŒ ìœ„ì—ì„œëŠ” 0
     private Dictionary<Rigidbody, float> originalDrags = new Dictionary<Rigidbody, float>();
 
     private void OnCollisionEnter(Collision collision)
@@ -15,8 +15,8 @@ public class IceTile : MonoBehaviour
             if (rb != null)
             {
                 if (!originalDrags.ContainsKey(rb))
-                    originalDrags[rb] = rb.drag; // µé¾î¿Ã ¶§ ¿ø·¡ drag ÀúÀå
-                rb.drag = iceDrag; // ¾óÀ½ À§¿¡¼­´Â ¹Ì²ô·´°Ô
+                    originalDrags[rb] = rb.drag; // ë“¤ì–´ì˜¬ ë•Œ ì›ë˜ drag ì €ì¥
+                rb.drag = iceDrag; // ì–¼ìŒ ìœ„ì—ì„œëŠ” ë¯¸ë„ëŸ½ê²Œ
             }
         }
     }
@@ -40,8 +40,8 @@ public class IceTile : MonoBehaviour
             Rigidbody rb = collision.gameObject.GetComponent<Rigidbody>();
             if (rb != null && originalDrags.ContainsKey(rb))
             {
-                rb.drag = originalDrags[rb]; // ³ª°¥ ¶§ ¿ø·¡ drag º¹±¸
-                originalDrags.Remove(rb); // ÀúÀåÇß´ø Á¤º¸µµ »èÁ¦
+                rb.drag = originalDrags[rb]; // ë‚˜ê°ˆ ë•Œ ì›ë˜ drag ë³µêµ¬
+                originalDrags.Remove(rb); // ì €ì¥í–ˆë˜ ì •ë³´ë„ ì‚­ì œ
             }
         }
     }
