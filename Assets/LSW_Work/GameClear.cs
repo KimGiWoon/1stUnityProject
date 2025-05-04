@@ -9,9 +9,9 @@ public class GameClear : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            // 랭킹 등록 씬 괄호 안에 넣기
-            //SceneManager.Inst.LoadScene();
-            Debug.Log("게임 클리어!");
+            //랭킹 등록 씬 괄호 안에 넣기
+            SceneManager.Inst.LoadClearScene();
+            //Debug.Log("게임 클리어!");
         }
     }
 }
