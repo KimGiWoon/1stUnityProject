@@ -12,22 +12,25 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float deceleration = 15f;
     private bool isGround;
     private Animator animator;
+    private PlayerGrab grab;
 
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
+        grab = GetComponent<PlayerGrab>(); // 같은 오브젝트에 붙어 있을 경우
     }
 
 
-    private void Update()
+    void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && isGround) // 땅에 붙어 있을 때 점프하게 구현
+        if (grab != null && grab.IsGrabbing) return; // ❌ 그랩 중일 땐 입력 차단
+
+        if (Input.GetKeyDown(KeyCode.Space) && isGround)
         {
             Jump();
         }
-
         else
         {
             animator.SetBool("Jump", false);
@@ -39,8 +42,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void FixedUpdate()
+    void FixedUpdate()
     {
+        if (grab != null && grab.IsGrabbing) return; // ❌ 그랩 중일 땐 이동 차단
         Move();
     }
 
