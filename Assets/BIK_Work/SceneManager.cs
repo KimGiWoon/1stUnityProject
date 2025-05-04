@@ -59,13 +59,14 @@ public class SceneManager : MonoBehaviour {
         LoadScene("IngameScene");
     }
 
-    public void LoadOptionScene(){
-        LoadScene("OptionScene");
-    }
-
     public void LoadTitleScene()
     {
         LoadScene("TitleScene");
+    }
+
+    public void LoadClearScene()
+    {
+        LoadScene("ClearScene");
     }
 
     #endregion // public funcs

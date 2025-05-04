@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Analytics;
 using UnityEngine.UI;
@@ -33,13 +34,12 @@ public class ClearSceneUI : MonoBehaviour
             RankListUI();    // 랭킹 UI 새로고침
             saveButtonON = true;
         }
-        
     }
 
     // 취소 버튼 클릭
     public void CancelButtonClick()
     {
-        SceneManager.Inst.LoadScene("KGW_Test Scene");
+        SceneManager.Inst.LoadTitleScene();
         // 취소 버튼 클릭 시 점수 저장하지 않고 타이틀 씬으로 전환
         saveButtonON = false;
     }
