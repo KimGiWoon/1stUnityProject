@@ -25,26 +25,29 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (grab != null && grab.IsGrabbing) return; // ❌ 그랩 중일 땐 입력 차단
+        // 열쇠를 잡고 있어도 점프는 가능해야 하므로, WallGrabbing일 때만 막는다
+        if (grab != null && grab.IsWallGrabbing) return; // 벽을 잡고 있을 때만 점프 차단
+        {
+            if (Input.GetKeyDown(KeyCode.Space) && isGround)
+            {
+                Jump();
+            }
+            else
+            {
+                animator.SetBool("Jump", false);
+            }
 
-        if (Input.GetKeyDown(KeyCode.Space) && isGround)
-        {
-            Jump();
-        }
-        else
-        {
-            animator.SetBool("Jump", false);
-        }
-
-        if (rb.velocity.y < 0)
-        {
-            rb.velocity += Vector3.up * Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
+            // 중력 보정
+            if (rb.velocity.y < 0)
+            {
+                rb.velocity += Vector3.up * Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
+            }
         }
     }
 
     void FixedUpdate()
     {
-        if (grab != null && grab.IsGrabbing) return; // ❌ 그랩 중일 땐 이동 차단
+        if (grab != null && grab.IsWallGrabbing) return; // ❌ 그랩 중일 땐 이동 차단
         Move();
     }
 
