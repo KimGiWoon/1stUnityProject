@@ -7,7 +7,7 @@ public class CameraControllerLSW : MonoBehaviour
 {
     [SerializeField] Transform target;      // 따라갈 플레이어
     [SerializeField] Vector3 offset = new Vector3(0f, 2f, -5f); // 카메라 초기 위치
-    [SerializeField][Range(5, 20)] float rotateSpeed = 5f;     // 마우스 회전 속도 초기값
+    [SerializeField][Range(0.1f, 1)] float rotateSpeed = 0.1f;     // 마우스 회전 속도 초기값
     [SerializeField][Range(5, 20)] float followSpeed = 10f;      // 플레이어 따라가는 속도 초기값
     [SerializeField][Range(10, 30)] float zoomInSpeed = 10f;     // 마우스 줌인 속도 초기값
     private float curRotationX = 10f;     // 현재 X축위치 초기화
