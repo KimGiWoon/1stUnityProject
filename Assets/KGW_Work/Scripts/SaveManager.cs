@@ -31,7 +31,7 @@ public class SaveManager : MonoBehaviour
 
     #endregion
 
-    const int rankListMaxCount = 10;    // 랭킹 표현 순위
+    const int rankListMaxCount = 25;    // 랭킹 순위 세팅
 
     #region Static Fields
 
