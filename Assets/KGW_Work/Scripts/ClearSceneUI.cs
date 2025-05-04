@@ -8,8 +8,8 @@ using UnityEngine.UI;
 public class ClearSceneUI : MonoBehaviour
 {
     [SerializeField] TMP_InputField inputFieldUI;
-    [SerializeField] Transform rankingContainer;   // Content 오브젝트
-    [SerializeField] GameObject rankingItemPrefab;   // RankingItem 프리팹
+    [SerializeField] Transform rankList;   // Content 오브젝트
+    [SerializeField] GameObject rankListPrefab;   // RankingItem 프리팹
     bool saveButtonON = false;
 
     private void Start()
@@ -56,7 +56,7 @@ public class ClearSceneUI : MonoBehaviour
     public void RankListUI()
     {
         // 기존 항목 제거
-        foreach (Transform ranking in rankingContainer)
+        foreach (Transform ranking in rankList)
         {
             Destroy(ranking.gameObject);
         }
@@ -67,7 +67,7 @@ public class ClearSceneUI : MonoBehaviour
         // 텍스트에 순위, 플레이어 이름, 플레이 타임 출력
         for (int i = 0; i < rankingList.Count; i++)
         {
-            GameObject item = Instantiate(rankingItemPrefab, rankingContainer);
+            GameObject item = Instantiate(rankListPrefab, rankList);
 
             TMP_Text rankText = item.transform.Find("RankText").GetComponent<TMP_Text>();
             TMP_Text nameText = item.transform.Find("NameText").GetComponent<TMP_Text>();
