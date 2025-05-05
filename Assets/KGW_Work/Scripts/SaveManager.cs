@@ -31,7 +31,11 @@ public class SaveManager : MonoBehaviour
 
     #endregion
 
+    #region private Fields
+
     const int rankListMaxCount = 25;    // 랭킹 순위 세팅
+
+    #endregion
 
     #region Static Fields
 
@@ -163,7 +167,7 @@ public class SaveManager : MonoBehaviour
 
         // 정상 삭제 확인
         PlayerPrefs.Save();
-        Debug.Log("랭킹 데이터 초기화 완료");
+        //Debug.Log("랭킹 데이터 초기화 완료");
     }
     #endregion // Public Funcs
 }

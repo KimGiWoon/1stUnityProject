@@ -10,14 +10,14 @@ public class RankButtonClick : MonoBehaviour
     [SerializeField] GameObject rankBoardPrefab;   // RankingItem 프리팹
     [SerializeField] GameObject rankBoardPanel;
 
-    public void RankButtonOn()
+    public void OnClickRankButton()
     {
         rankBoardPanel.SetActive(true);
-        Debug.Log("랭크버튼이 눌렸습니다.");
+        //Debug.Log("랭크버튼이 눌렸습니다.");
         RankListUI();
     }
 
-    public void CloseButtonOn()
+    public void OnClickCloseButton()
     {
         rankBoardPanel.SetActive(false);
     }

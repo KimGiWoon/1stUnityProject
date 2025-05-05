@@ -13,6 +13,6 @@ public class PlayTimeCalculate : MonoBehaviour
     
     private void Update()
     {
-        // Todo : heightText.text = $"Time : {데이터 매니저 시간}";
+        heightText.text = $"Time : {SaveManager.Inst.GetPlayTime():F2}";
     }
 }
