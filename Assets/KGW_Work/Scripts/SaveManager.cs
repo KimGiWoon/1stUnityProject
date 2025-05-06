@@ -41,6 +41,7 @@ public class SaveManager : MonoBehaviour
 
     private static string playerStringKey = "PlayerName";   // Player Name Key
     private static string playTimeKey = "PlayTime";         // Play Time Key
+    private static string playMinuteTimeKey = "PlayMinuteTime";         // Play Minute Time Key
     //private static string playerScoreKey = "PlayerScore";   // Player Score Key
     //private static string lastPlayDateKey = "LastPlayDate";         // Play Time Key
 
@@ -81,49 +82,64 @@ public class SaveManager : MonoBehaviour
     }
 
     // 플레이 타임 저장
-    public void SavePlayTime(float totalPlayTime)
+    public void SaveSecondPlayTime(float secondPlayTime)
     {
-        PlayerPrefs.SetFloat(playTimeKey, totalPlayTime);   // 플레이 타임 키에 총 플레이 시간 저장
+        PlayerPrefs.SetFloat(playTimeKey, secondPlayTime);   // 플레이 타임 키에 총 플레이 시간 저장
         PlayerPrefs.Save();
     }
 
-    public float GetPlayTime()
+    public float GetSecondPlayTime()
     {
         return PlayerPrefs.GetFloat(playTimeKey, 0);    // 플레이 시간이 없으면 0 반환
     }
 
-    public void SaveRankingData(string playerName, float playTime)
+    // 플레이 타임(분) 저장
+    public void SaveMinutePlayTime(int minutePlayTime)
     {
-        List<(string name, float time)> rankList = new List<(string name, float time)>();
+        PlayerPrefs.SetInt(playMinuteTimeKey, minutePlayTime);   // 플레이 타임(분) 키에 총 시간{분) 저장
+        PlayerPrefs.Save();
+    }
+
+    public int GetMinutePlayTime()
+    {
+        return PlayerPrefs.GetInt(playMinuteTimeKey, 0);    // 플레이 시간(분)이 없으면 0 반환
+    }
+
+    public void SaveRankingData(string playerName, float secondTime, int minuteTime)
+    {
+        List<(string name, float secondTime, int minuteTime)> rankList = new List<(string name, float secondTime, int minuteTime)>();
 
         for (int i = 0; i < rankListMaxCount; i++)
         {
             string name = PlayerPrefs.GetString($"PlayerName_{i}", "");
-            float time = PlayerPrefs.GetFloat($"PlayTime_{i}", -1f);
+            float sTime = PlayerPrefs.GetFloat($"PlayTime_{i}", -1f);
+            int mTime = PlayerPrefs.GetInt($"PlayMinuteTime_{i}", -1);
 
-            if (!string.IsNullOrEmpty(name) && time >= 0)
+            if (!string.IsNullOrEmpty(name) && sTime >= 0 && mTime >= 0)
             {
-                rankList.Add((name, time));
+                rankList.Add((name, sTime, mTime));
             }
         }
 
         // 새 랭킹 추가
-        rankList.Add((playerName, playTime));
+        rankList.Add((playerName, secondTime, minuteTime));
 
         // 정렬 및 상위 10개 유지
-        rankList = rankList.OrderBy(x => x.time).Take(rankListMaxCount).ToList();
+        rankList = rankList.OrderBy(x => x.minuteTime).ThenBy(x => x.secondTime).Take(rankListMaxCount).ToList();
 
         for (int i = 0; i < rankListMaxCount; i++)
         {
             if (i < rankList.Count)
             {
                 PlayerPrefs.SetString($"PlayerName_{i}", rankList[i].name);
-                PlayerPrefs.SetFloat($"PlayTime_{i}", rankList[i].time);
+                PlayerPrefs.SetFloat($"PlayTime_{i}", rankList[i].secondTime);
+                PlayerPrefs.SetInt($"PlayMinuteTime_{i}", rankList[i].minuteTime);
             }
             else
             {
                 PlayerPrefs.DeleteKey($"PlayerName_{i}");
                 PlayerPrefs.DeleteKey($"PlayTime_{i}");
+                PlayerPrefs.DeleteKey($"PlayMinuteTime_{i}");
             }
         }
 
@@ -131,24 +147,26 @@ public class SaveManager : MonoBehaviour
     }
 
     // 저장된 랭크 리스트 가져오기
-    public List<(string name, float time)> GetRankingData()
+    public List<(string name, float secondTime, int minuteTime)> GetRankingData()
     {
-        List<(string name, float time)> rankList = new List<(string name, float time)>();
+        List<(string name, float secondTime, int minuteTime)> rankList = new List<(string name, float secondTime, int minuteTime)>();
 
         for (int i = 0; i < rankListMaxCount; i++)
         {
             string name = PlayerPrefs.GetString($"PlayerName_{i}", "");
-            float time = PlayerPrefs.GetFloat($"PlayTime_{i}", -1f);
+            float sTime = PlayerPrefs.GetFloat($"PlayTime_{i}", -1f);
+            int mTime = PlayerPrefs.GetInt($"PlayMinuteTime_{i}", -1);
 
-            if (!string.IsNullOrEmpty(name) && time >= 0)
+            if (!string.IsNullOrEmpty(name) && sTime >= 0 && mTime >= 0)
             {
-                rankList.Add((name, time));
+                rankList.Add((name, sTime, mTime));
             }
             else
             {
                 name = "Not ranking data.";
-                time = 0;
-                rankList.Add((name, time));
+                sTime = 0;
+                mTime = 0;
+                rankList.Add((name, sTime, mTime));
             }
         }
 
@@ -163,6 +181,7 @@ public class SaveManager : MonoBehaviour
         {
             PlayerPrefs.DeleteKey($"PlayerName_{i}");
             PlayerPrefs.DeleteKey($"PlayTime_{i}");
+            PlayerPrefs.DeleteKey($"PlayMinuteTime_{i}");
         }
 
         // 정상 삭제 확인

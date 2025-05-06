@@ -8,13 +8,15 @@ public class RankButtonClick : MonoBehaviour
 {
     [SerializeField] Transform rankBoard;   // Content 오브젝트
     [SerializeField] GameObject rankBoardPrefab;   // RankingItem 프리팹
-    [SerializeField] GameObject rankBoardPanel;
+    [SerializeField] GameObject rankBoardPanel;    // RankBoardPanel
+    float secondTime = 0f;
+    int minuteTime = 0;
 
     public void OnClickRankButton()
     {
         rankBoardPanel.SetActive(true);
         //Debug.Log("랭크버튼이 눌렸습니다.");
-        RankListUI();
+        RankBoardListUI();
     }
 
     public void OnClickCloseButton()
@@ -22,7 +24,7 @@ public class RankButtonClick : MonoBehaviour
         rankBoardPanel.SetActive(false);
     }
 
-    public void RankListUI()
+    public void RankBoardListUI()
     {
         // 기존 항목 제거
         foreach (Transform ranking in rankBoard)
@@ -31,7 +33,7 @@ public class RankButtonClick : MonoBehaviour
         }
 
         // 저장한 랭킹 리스트 가져오기
-        List<(string name, float time)> rankingList = SaveManager.Inst.GetRankingData();
+        List<(string name, float sTime, int mTime)> rankingList = SaveManager.Inst.GetRankingData();
 
         // 텍스트에 순위, 플레이어 이름, 플레이 타임 출력
         for (int i = 0; i < rankingList.Count; i++)
@@ -44,7 +46,7 @@ public class RankButtonClick : MonoBehaviour
 
             rankText.text = $"{i + 1}";
             nameText.text = rankingList[i].name;
-            timeText.text = $"{rankingList[i].time:F2}";
+            timeText.text = $"{rankingList[i].mTime}.{rankingList[i].sTime:F2}";
         }
     }
 }

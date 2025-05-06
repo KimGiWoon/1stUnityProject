@@ -28,8 +28,9 @@ public class ClearSceneUI : MonoBehaviour
             //Debug.Log(SaveManager.Inst.GetData());
             //Debug.Log(SaveManager.Inst.GetPlayTime());
 
-            float clearTime = SaveManager.Inst.GetPlayTime();  // 현재 플레이 타임 가져오기
-            SaveManager.Inst.SaveRankingData(playerName, clearTime);  // 랭킹에 반영
+            float secondTime = SaveManager.Inst.GetSecondPlayTime();  // 현재 플레이 타임 가져오기
+            int minuteTime = SaveManager.Inst.GetMinutePlayTime();
+            SaveManager.Inst.SaveRankingData(playerName, secondTime, minuteTime);  // 랭킹에 반영
 
             RankListUI();    // 랭킹 UI 새로고침
             OnsaveButton = true;
@@ -62,7 +63,7 @@ public class ClearSceneUI : MonoBehaviour
         }
 
         // 저장한 랭킹 리스트 가져오기
-        List<(string name, float time)> rankingList = SaveManager.Inst.GetRankingData();
+        List<(string name, float sTime, int mTime)> rankingList = SaveManager.Inst.GetRankingData();
 
         // 텍스트에 순위, 플레이어 이름, 플레이 타임 출력
         for (int i = 0; i < rankingList.Count; i++)
@@ -75,7 +76,7 @@ public class ClearSceneUI : MonoBehaviour
 
             rankText.text = $"{i + 1}";
             nameText.text = rankingList[i].name;
-            timeText.text = $"{rankingList[i].time:F2}";
+            timeText.text = $"{rankingList[i].mTime}.{rankingList[i].sTime:F2}";
         }
     }
 

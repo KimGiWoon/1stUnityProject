@@ -10,9 +10,11 @@ public class PlayTimeCalculate : MonoBehaviour
     [SerializeField] private TextMeshProUGUI heightText;
     // 랭킹 데이터 매니저
     
-    
     private void Update()
     {
-        heightText.text = $"Time : {SaveManager.Inst.GetPlayTime():F2}";
+        float secondTime = SaveManager.Inst.GetSecondPlayTime();
+        int minuteTime = SaveManager.Inst.GetMinutePlayTime();
+ 
+        heightText.text = $"Time : {minuteTime}.{(secondTime):F2}";
     }
 }
