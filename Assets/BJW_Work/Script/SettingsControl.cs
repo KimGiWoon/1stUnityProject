@@ -78,11 +78,23 @@ public class SettingsControl : MonoBehaviour
 
     public void OnClickOK()
     {
-        PlayerPrefs.SetFloat("Brightness", brightnessSlider.value);
-        PlayerPrefs.SetFloat("MouseSensitivity", sensitivitySlider.value);
-        PlayerPrefs.SetFloat("BGMVolume", bgmSlider.value);
+        float currentBrightness = brightnessSlider.value;
+        float currentSensitivity = sensitivitySlider.value;
+        float currentBGM = bgmSlider.value;
+
+        PlayerPrefs.SetFloat("Brightness", currentBrightness);
+        PlayerPrefs.SetFloat("MouseSensitivity", currentSensitivity);
+        PlayerPrefs.SetFloat("BGMVolume", currentBGM);
         PlayerPrefs.Save();
-        ApplyBrightness(brightnessSlider.value);
+
+        // 실제 적용
+        ApplyBrightness(currentBrightness);
+        BGMManager.Instance?.SetVolume(currentBGM);
+
+        // 초기값도 현재값으로 갱신 (← 핵심!)
+        initialBrightness = currentBrightness;
+        initialSensitivity = currentSensitivity;
+        initialBGM = currentBGM;
 
         optionPanel.SetActive(false);
     }
