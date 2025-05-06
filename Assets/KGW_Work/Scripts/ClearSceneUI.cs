@@ -11,45 +11,45 @@ public class ClearSceneUI : MonoBehaviour
     [SerializeField] TMP_InputField inputFieldUI;
     [SerializeField] Transform rankList;   // Content 오브젝트
     [SerializeField] GameObject rankListPrefab;   // RankingItem 프리팹
-    bool saveButtonON = false;
+    bool OnsaveButton = false;
 
     private void Start()
     {
         RankListUI();    // 랭킹 UI 새로고침
     }
 
-    public void SaveButtonClick()
+    public void OnClickSaveButton()
     {
-        if(!saveButtonON)
+        if(!OnsaveButton)
         {
             string playerName = inputFieldUI.text;
             SaveManager.Inst.SaveDate(playerName);
             // TODO 입력된 플레이어이름 및 플레이타임 출력 -> 확인용으로 추후 삭제 계획
-            Debug.Log(SaveManager.Inst.GetData());
-            Debug.Log(SaveManager.Inst.GetPlayTime());
+            //Debug.Log(SaveManager.Inst.GetData());
+            //Debug.Log(SaveManager.Inst.GetPlayTime());
 
             float clearTime = SaveManager.Inst.GetPlayTime();  // 현재 플레이 타임 가져오기
             SaveManager.Inst.SaveRankingData(playerName, clearTime);  // 랭킹에 반영
 
             RankListUI();    // 랭킹 UI 새로고침
-            saveButtonON = true;
+            OnsaveButton = true;
         }
     }
 
     // 취소 버튼 클릭
-    public void CancelButtonClick()
+    public void OnClickBackButton()
     {
         SceneManager.Inst.LoadTitleScene();
         // 취소 버튼 클릭 시 점수 저장하지 않고 타이틀 씬으로 전환
-        saveButtonON = false;
+        OnsaveButton = false;
     }
 
     // 랭킹 리스트 초기화 버튼
-    public void ClearButtonClick()
+    public void OnClickClearButton()
     {
         SaveManager.Inst.ClearRankingData();    // 클리어 함수 호출
         RankListUI();  // 랭킹 UI 새로고침
-        saveButtonON = false;
+        OnsaveButton = false;
     }
 
     // 랭킹 리스트 
