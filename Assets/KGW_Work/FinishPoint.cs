@@ -22,7 +22,7 @@ public class FinishPoint : MonoBehaviour
             StopTimer();
 
             float playTime = TotalPlayTime(startTime, stopTime);
-            SaveManager.Inst.SavePlayTime(playTime);  // SaveManager에 저장
+            SaveManager.Inst.SaveSecondPlayTime(playTime);  // SaveManager에 저장
 
             SceneChange("ClearScene");
 
