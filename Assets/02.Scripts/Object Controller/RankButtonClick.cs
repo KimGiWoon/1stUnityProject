@@ -9,8 +9,7 @@ public class RankButtonClick : MonoBehaviour
     [SerializeField] Transform rankBoard;   // Content 오브젝트
     [SerializeField] GameObject rankBoardPrefab;   // RankingItem 프리팹
     [SerializeField] GameObject rankBoardPanel;    // RankBoardPanel
-    float secondTime = 0f;
-    int minuteTime = 0;
+
 
     public void OnClickRankButton()
     {
