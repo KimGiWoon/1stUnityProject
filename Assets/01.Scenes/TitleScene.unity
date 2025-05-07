@@ -3215,10 +3215,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: RankView
       objectReference: {fileID: 0}
-    - target: {fileID: 1209473979628893647, guid: 6789d236cfce3fd419ae9b4e5b2e4bc0, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1235020699573938446, guid: 6789d236cfce3fd419ae9b4e5b2e4bc0, type: 3}
       propertyPath: m_Size
       value: 0.99999857
@@ -3261,7 +3257,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3649353188475248642, guid: 6789d236cfce3fd419ae9b4e5b2e4bc0, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0.000117599964
+      value: 0.0000014305115
       objectReference: {fileID: 0}
     - target: {fileID: 3895302990788451049, guid: 6789d236cfce3fd419ae9b4e5b2e4bc0, type: 3}
       propertyPath: m_Name
@@ -3325,7 +3321,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5461490812030552112, guid: 6789d236cfce3fd419ae9b4e5b2e4bc0, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.07962036
+      value: -0.0007019043
       objectReference: {fileID: 0}
     - target: {fileID: 6190640825053884590, guid: 6789d236cfce3fd419ae9b4e5b2e4bc0, type: 3}
       propertyPath: m_SizeDelta.x
