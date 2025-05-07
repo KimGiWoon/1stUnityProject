@@ -3,18 +3,17 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-public class FadeOutPanel : MonoBehaviour
+public class FadeOutPanelClear : MonoBehaviour
 {
     [Header("Drag&Drop")]
     [Tooltip("GameOverUICanvas의 하위 객체 드래그")] 
     [SerializeField] private Image fadeOutPanel;
-    [SerializeField] private TextMeshProUGUI gameOverText;
-    [SerializeField] private TextMeshProUGUI restartBtnText;
-    [SerializeField] private TextMeshProUGUI exitBtnText;
-    [SerializeField] private Button restartBtn;
-    [SerializeField] private Button exitBtn;
+    [SerializeField] private TextMeshProUGUI gameClearText;
+    [SerializeField] private TextMeshProUGUI nextBtnText;
+    [SerializeField] private Button nextBtn;
     
     [Header("Number")]
     [Tooltip("Fade-In 연출 시간")] 
@@ -23,11 +22,7 @@ public class FadeOutPanel : MonoBehaviour
     private void Awake()
     {
         Init();
-        if (true)
-        {
-            Debug.Log("hi");
-            GameManager.Inst.TakeGameOverUI(gameObject);
-        }
+        GameManager.Inst.TakeGameClearUI(gameObject);
     }
     
     private void Start()
@@ -37,14 +32,14 @@ public class FadeOutPanel : MonoBehaviour
 
     private void OnEnable()
     {
-        GameOver();
+        GameClear();
     }
     
     /// <summary>
     /// public으로 설정하여 게임 매니저에서 직접 호출해도 되고, SetActive(true)를 통해 호출하는 것도 가능
     /// GameOver 조건이 충족되면 화면이 어두워지고 게임오버 UI 출력
     /// </summary>
-    public void GameOver()
+    public void GameClear()
     {
         StartCoroutine(FadeIn());
     }
@@ -55,13 +50,13 @@ public class FadeOutPanel : MonoBehaviour
         fadeColor.a = 0;
         fadeOutPanel.color = fadeColor;
 
-        Color textColor = gameOverText.color;
+        Color textColor = gameClearText.color;
         textColor.a = 0;
-        gameOverText.color = textColor;
+        gameClearText.color = textColor;
         
-        Color btnColor = restartBtnText.color;
+        Color btnColor = nextBtnText.color;
         btnColor.a = 0;
-        restartBtnText.color = btnColor;
+        nextBtnText.color = btnColor;
         
         float timer = 0f;
         while (timer < fadeDuration * 0.95f)
@@ -70,17 +65,15 @@ public class FadeOutPanel : MonoBehaviour
             fadeColor.a = Mathf.Clamp01(timer / fadeDuration);
             fadeOutPanel.color = fadeColor;
             textColor.a = Mathf.Clamp01(timer * 0.95f / fadeDuration);
-            gameOverText.color = textColor;
+            gameClearText.color = textColor;
             btnColor.a = Mathf.Clamp01(timer * 0.95f / fadeDuration);
-            restartBtnText.color = btnColor;
-            exitBtnText.color = btnColor;
+            nextBtnText.color = btnColor;
             yield return null;
         }
     }
 
     private void Init()
     {
-        restartBtn.onClick.AddListener(()=>SceneManager.Inst.LoadIngameScene());
-        exitBtn.onClick.AddListener(()=> SceneManager.Inst.LoadTitleScene());
+        nextBtn.onClick.AddListener(()=>SceneManager.Inst.LoadClearScene());
     }
 }
