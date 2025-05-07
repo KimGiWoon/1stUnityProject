@@ -32,9 +32,12 @@ public class PlayerGrab : MonoBehaviour
         // 열쇠를 잡고 있을 때, 손 앞 위치로 따라오게 함 (자연스럽게 이동)
         if (grabbedKey != null)
         {
-            Vector3 targetPos = grabPoint.position + grabPoint.forward * 0.1f;  // 손 앞쪽 0.1f 거리
-            grabbedKey.transform.position = Vector3.Lerp(grabbedKey.transform.position, targetPos, 1f); 
-            grabbedKey.transform.rotation = Quaternion.Lerp(grabbedKey.transform.rotation, grabPoint.rotation, 5f); // 회전 속도
+            // grabPoint의 월드 위치를 계산하여 부드럽게 이동
+            Vector3 targetPos = grabPoint.position + grabPoint.forward * 0.1f;
+
+            // 자연스러운 이동과 회전을 위해 Lerp 속도 조정
+            grabbedKey.transform.position = Vector3.Lerp(grabbedKey.transform.position, targetPos, 0.2f);
+            grabbedKey.transform.rotation = Quaternion.Lerp(grabbedKey.transform.rotation, grabPoint.rotation, 0.2f);
         }
     }
 
@@ -114,7 +117,11 @@ public class PlayerGrab : MonoBehaviour
             keyRb.interpolation = RigidbodyInterpolation.Interpolate;
         }
 
-        // SetParent 없이, 물리 충돌 없이 부드럽게 붙이기
+        // 키를 grabPoint의 자식으로 설정하여 위치 고정
+        grabbedKey.transform.SetParent(grabPoint);
+        grabbedKey.transform.localPosition = new Vector3(0, 0, 0.1f); // 손 앞 0.1f 위치
+        grabbedKey.transform.localRotation = Quaternion.identity; // 회전 초기화
+
     }
 
     void Climbing()
