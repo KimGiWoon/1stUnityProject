@@ -1,0 +1,57 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class TriggerZone : MonoBehaviour
+{
+    public GameObject pencilObject; // 씬에 미리 배치된 연필 오브젝트
+    private bool isActivated = false;
+
+    private void Awake()
+    {
+        // 시작할 때 연필을 비활성화하여 스폰 포인트로 사용
+        if (pencilObject != null)
+        {
+            pencilObject.SetActive(false);
+            Debug.Log("Awake: 연필이 비활성화되었습니다!");
+        }
+        else
+        {
+            Debug.LogWarning("Awake: 연필 오브젝트가 할당되지 않았습니다!");
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        // 이미 활성화된 경우 중복 방지
+        if (isActivated) return;
+
+        // Key 태그를 가진 오브젝트가 들어왔을 때만 실행
+        if (other.CompareTag("Key"))
+        {
+            // 연필 오브젝트를 활성화
+            if (pencilObject != null)
+            {
+                pencilObject.SetActive(true); // 기존 위치에서 활성화
+                isActivated = true;
+                Debug.Log("연필이 활성화되었습니다!");
+
+                // 키를 없애기 전에 그랩 해제
+                PlayerGrab playerGrab = FindObjectOfType<PlayerGrab>();
+                if (playerGrab != null && playerGrab.IsGrabbing)
+                {
+                    playerGrab.ReleaseGrabbedKey(); // 키를 잡고 있으면 해제
+                    Debug.Log("키를 잡고 있는 상태에서 해제 처리");
+                }
+
+                // 키 오브젝트 삭제
+                Destroy(other.gameObject);
+                Debug.Log("키 오브젝트가 제거되었습니다!");
+            }
+            else
+            {
+                Debug.LogWarning("연필 오브젝트가 할당되지 않았습니다!");
+            }
+        }
+    }
+}
