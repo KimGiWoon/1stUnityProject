@@ -11,7 +11,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Transform respawnPoint; // 리스폰 지점
     [SerializeField] private Transform goalPoint; // 목표 지점 
     [SerializeField] private Transform savePoint; // 세이브 지점
-    [SerializeField] private FadeOutPanel fadeOutPanel; // GameOver 연출용 UI 패널
+    [SerializeField] private GameObject gameOverUI; // GameOver 연출용 UI 패널
+    [SerializeField] private GameObject gameClearUI; // GameClear 연출용 UI 패널
     private bool Goal = false;
 
     private static GameManager instance; // 싱글톤 인스턴스
@@ -80,15 +81,13 @@ public class GameManager : MonoBehaviour
     public void OnPlayerDied()
     {
         Debug.Log("GameManager: 플레이어가 사망하였다!");
-
-        // FadeOutPanel UI 연출
-        if (fadeOutPanel != null)
+        if (gameOverUI != null)
         {
-            fadeOutPanel.gameObject.SetActive(true); // OnEnable() → FadeIn() 자동 호출됨
+            gameOverUI.SetActive(true);
         }
         else
         {
-            Debug.LogWarning("FadeOutPanel이 연결되지 않았습니다!");
+            Debug.LogWarning("gameOverUI가 연결되지 않았습니다!");
         }
 
         StartCoroutine(RespawnCoroutine());
@@ -100,9 +99,14 @@ public class GameManager : MonoBehaviour
 
         Debug.Log("GameManager: 목표 도달 처리 실행!");
 
-        // 여기서  게임 클리어 UI 띄우기, 씬 전환 등
-        // UIManager.Inst.ShowStageClear();
-        // SceneManager.LoadScene("NextStage");
+        if (gameClearUI != null)
+        {
+            gameClearUI.SetActive(true);
+        }
+        else
+        {
+            Debug.LogWarning("gameClearUI가 연결되지 않았습니다!");
+        }
     }
 
     public void OnPlayerReachedSave()
