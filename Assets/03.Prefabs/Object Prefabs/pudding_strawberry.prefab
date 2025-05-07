@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6869597402645262065}
   - component: {fileID: 1087388360392145825}
   - component: {fileID: 2919934158843554082}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: pudding_strawberry
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107,6 +107,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: 56d06cc889a71497881421e0d5f7054d, type: 3}
       propertyPath: m_Name
       value: pudding_strawberry
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 56d06cc889a71497881421e0d5f7054d, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 56d06cc889a71497881421e0d5f7054d, type: 3}
       propertyPath: m_RootOrder

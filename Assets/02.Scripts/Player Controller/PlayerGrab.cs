@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class PlayerGrab : MonoBehaviour
 {
-    [SerializeField] LayerMask grabbableLayer; // 잡을 수 있는 레이어 (벽 잡기용)
     [SerializeField] float climbJumpForce = 2f; // 오르는 힘
     [SerializeField] float climbSpeed = 2f; // 클라이밍 스피드
     [SerializeField] float climbRange = 0.05f; // 클라이밍 범위
     [SerializeField] private Transform grabPoint; // 손위치
+    private LayerMask grabbableLayer; // 잡을 수 있는 레이어 (벽 잡기용)
     public KeyCode grabKey = KeyCode.E; // 잡는 키 상호작용
     public KeyCode jumpKey = KeyCode.Space; // 점프 키 상호작용
     private float grabStartY; // 벽 잡은 순간 플레이어 높이 저장
@@ -25,6 +25,7 @@ public class PlayerGrab : MonoBehaviour
     {
         myBody = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
+        grabbableLayer= LayerMask.NameToLayer("Key");
     }
 
     void FixedUpdate()
@@ -40,12 +41,12 @@ public class PlayerGrab : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(grabKey) && grabCandidate != null)
+        if (Input.GetMouseButton(1) && grabCandidate != null)
         {
             GrabKey(grabCandidate);
         }
 
-        if (Input.GetKeyUp(grabKey))
+        if (Input.GetMouseButtonUp(1))
         {
             UnTryGrab(); // 그랩 해제
         }
