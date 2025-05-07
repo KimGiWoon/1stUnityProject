@@ -225,4 +225,33 @@ public class PlayerGrab : MonoBehaviour
         }
     }
 
+    public void ReleaseGrabbedKey()
+    {
+        if (grabbedKey != null)
+        {
+            // 부모 해제 전에 현재 위치를 고정하여 튀는 현상 방지
+            grabbedKey.transform.SetParent(null);
+
+            Rigidbody keyRb = grabbedKey.GetComponent<Rigidbody>();
+            if (keyRb != null)
+            {
+                keyRb.velocity = Vector3.zero;
+                keyRb.angularVelocity = Vector3.zero;
+                keyRb.useGravity = true;
+            }
+
+            // 그랩 포인트도 삭제
+            if (grabPoint != null)
+            {
+                Destroy(grabPoint.gameObject);
+                Debug.Log("그랩 포인트도 삭제되었습니다!");
+            }
+
+            grabbedKey = null;
+            isGrab = false;
+        }
+    }
+
+
 }
+

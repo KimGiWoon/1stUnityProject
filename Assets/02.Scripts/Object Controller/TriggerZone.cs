@@ -9,7 +9,7 @@ public class TriggerZone : MonoBehaviour
 
     private void Awake()
     {
-        // 🌟 시작할 때 연필을 비활성화하여 스폰 포인트로 사용
+        // 시작할 때 연필을 비활성화하여 스폰 포인트로 사용
         if (pencilObject != null)
         {
             pencilObject.SetActive(false);
@@ -29,14 +29,24 @@ public class TriggerZone : MonoBehaviour
         // Key 태그를 가진 오브젝트가 들어왔을 때만 실행
         if (other.CompareTag("Key"))
         {
-            //  연필 오브젝트를 활성화
+            // 연필 오브젝트를 활성화
             if (pencilObject != null)
             {
                 pencilObject.SetActive(true); // 기존 위치에서 활성화
-                isActivated = true; // 한 번만 활성화되도록 설정
+                isActivated = true;
                 Debug.Log("연필이 활성화되었습니다!");
 
+                // 키를 없애기 전에 그랩 해제
+                PlayerGrab playerGrab = FindObjectOfType<PlayerGrab>();
+                if (playerGrab != null && playerGrab.IsGrabbing)
+                {
+                    playerGrab.ReleaseGrabbedKey(); // 키를 잡고 있으면 해제
+                    Debug.Log("키를 잡고 있는 상태에서 해제 처리");
+                }
+
+                // 키 오브젝트 삭제
                 Destroy(other.gameObject);
+                Debug.Log("키 오브젝트가 제거되었습니다!");
             }
             else
             {
