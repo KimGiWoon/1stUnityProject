@@ -23,8 +23,21 @@ public class BGMManager : MonoBehaviour
         }
     }
 
+    void Start()
+    {
+        float savedVolume = PlayerPrefs.GetFloat("BGMVolume", 1f);
+        SetVolume(savedVolume); 
+
+        // 오디오 재생
+        if (audioSource != null && !audioSource.isPlaying)
+        {
+            audioSource.Play();            
+        }
+    }
+
     public void SetVolume(float value)
     {
-        audioMixer.SetFloat("BGM", Mathf.Log10(value) * 20);
+        float volume = Mathf.Log10(Mathf.Max(value, 0.0001f)) * 20f;
+        audioMixer.SetFloat("BGM", volume);        
     }
-} // 주석
+}
