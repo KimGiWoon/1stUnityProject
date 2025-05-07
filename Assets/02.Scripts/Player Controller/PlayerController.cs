@@ -78,7 +78,7 @@ public class PlayerController : MonoBehaviour
             rb.velocity = new Vector3(newVelocity.x, velocity.y, newVelocity.z);
 
             Quaternion targetRotation = Quaternion.LookRotation(moveDir);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 10f);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 5f);
         }
         else
         {

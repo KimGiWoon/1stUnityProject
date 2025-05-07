@@ -32,12 +32,9 @@ public class PlayerGrab : MonoBehaviour
         // 열쇠를 잡고 있을 때, 손 앞 위치로 따라오게 함 (자연스럽게 이동)
         if (grabbedKey != null)
         {
-            // grabPoint의 월드 위치를 계산하여 부드럽게 이동
-            Vector3 targetPos = grabPoint.position + grabPoint.forward * 0.1f;
-
-            // 자연스러운 이동과 회전을 위해 Lerp 속도 조정
-            grabbedKey.transform.position = Vector3.Lerp(grabbedKey.transform.position, targetPos, 0.2f);
-            grabbedKey.transform.rotation = Quaternion.Lerp(grabbedKey.transform.rotation, grabPoint.rotation, 0.2f);
+            Vector3 targetPos = grabPoint.position + grabPoint.forward * 0.1f;  // 손 앞쪽 0.1f 거리
+            grabbedKey.transform.position = Vector3.Lerp(grabbedKey.transform.position, targetPos, 1f);
+            grabbedKey.transform.rotation = Quaternion.Lerp(grabbedKey.transform.rotation, grabPoint.rotation, 5f); // 회전 속도
         }
     }
 
@@ -66,26 +63,62 @@ public class PlayerGrab : MonoBehaviour
 
     void UnTryGrab()
     {
-        if (isGrab) // 그랩 상태이면
+        if (isGrab)
         {
-            isGrab = false; // 그랩 해제
-            myBody.useGravity = true; // 중력 다시 적용
+            isGrab = false;
+            myBody.useGravity = true;
         }
 
-        if (grabbedKey != null) // 키를 잡고 있었다면
+        if (grabbedKey != null)
         {
-            // 부모 해제 전에 현재 위치를 고정하여 튀는 현상 방지
-            grabbedKey.transform.SetParent(null);
             Rigidbody keyRb = grabbedKey.GetComponent<Rigidbody>();
+
+            //  겹쳐진 상태라면 벽 방향으로 밀어내기
+            Vector3 pushDirection = Vector3.zero;
+            if (Physics.OverlapSphere(grabbedKey.transform.position, 0.1f, grabbableLayer).Length > 0)
+            {
+                // 벽 방향으로 짧게 레이캐스트하여 방향 추정
+                if (Physics.Raycast(grabbedKey.transform.position, -grabPoint.forward, out RaycastHit hit, 0.2f, grabbableLayer))
+                {
+                    pushDirection = hit.normal; // 벽의 반대 방향
+                    grabbedKey.transform.position += pushDirection * 0.2f; // 벽 밖으로 밀어냄
+                }
+                else
+                {
+                    // 벽이 감지되지 않으면 잡기 지점에서 앞쪽으로 밀기
+                    pushDirection = grabPoint.forward;
+                    grabbedKey.transform.position += pushDirection * 0.2f;
+                }
+            }
+
+            //  부모 해제 전에 현재 위치를 고정하여 튀는 현상 방지
+            grabbedKey.transform.SetParent(null);
+
             if (keyRb != null)
             {
-                keyRb.useGravity = true;
-                keyRb.isKinematic = false;
+                // 물리 속도 초기화
+                keyRb.velocity = Vector3.zero;
+                keyRb.angularVelocity = Vector3.zero;
+
+                // 물리 충돌 모드 설정 (안정화)
+                keyRb.collisionDetectionMode = CollisionDetectionMode.Continuous;
+
+                // 중력을 잠시 껐다 켜서 충돌 안정화
+                keyRb.useGravity = false;
+                StartCoroutine(EnableGravityAfterFrame(keyRb));
             }
 
             grabbedKey = null;
         }
     }
+
+    // 중력을 한 프레임 뒤에 켜서 충돌 안정화
+    private IEnumerator EnableGravityAfterFrame(Rigidbody keyRb)
+    {
+        yield return null; // 한 프레임 대기
+        keyRb.useGravity = true;
+    }
+
 
     void TryWallGrab(Collider wallCollider)
     {
@@ -119,11 +152,7 @@ public class PlayerGrab : MonoBehaviour
             keyRb.interpolation = RigidbodyInterpolation.Interpolate;
         }
 
-        // 키를 grabPoint의 자식으로 설정하여 위치 고정
-        grabbedKey.transform.SetParent(grabPoint);
-        grabbedKey.transform.localPosition = new Vector3(0, 0, 0.1f); // 손 앞 0.1f 위치
-        grabbedKey.transform.localRotation = Quaternion.identity; // 회전 초기화
-
+        // SetParent 없이, 물리 충돌 없이 부드럽게 붙이기
     }
 
     void Climbing()
