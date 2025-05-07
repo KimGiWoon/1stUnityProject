@@ -22,6 +22,7 @@ public class FadeOutPanelClear : MonoBehaviour
     private void Awake()
     {
         Init();
+        GameManager.Inst.TakeGameClearUI(gameObject);
     }
     
     private void Start()

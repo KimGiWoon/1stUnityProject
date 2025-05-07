@@ -23,6 +23,11 @@ public class FadeOutPanel : MonoBehaviour
     private void Awake()
     {
         Init();
+        if (true)
+        {
+            Debug.Log("hi");
+            GameManager.Inst.TakeGameOverUI(gameObject);
+        }
     }
     
     private void Start()

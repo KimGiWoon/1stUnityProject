@@ -167,6 +167,7 @@ MonoBehaviour:
   fadeOutPanel: {fileID: 574469054}
   gameClearText: {fileID: 825470331}
   nextBtnText: {fileID: 972600183}
+  nextBtn: {fileID: 2135136467}
   fadeDuration: 1
 --- !u!114 &36840934
 MonoBehaviour:
@@ -4382,27 +4383,6 @@ MonoBehaviour:
   fallMultiplier: 2.5
   acceleration: 20
   deceleration: 15
---- !u!114 &629161307
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 629161294}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 81442f7b8d955bc4f8686b309ca0a723, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  grabbableLayer:
-    serializedVersion: 2
-    m_Bits: 128
-  climbJumpForce: 2
-  climbSpeed: 2
-  climbRange: 0.05
-  grabPoint: {fileID: 2155324636584858478, guid: b1272644e7eda4f4ea570c9fa0ceff44, type: 3}
-  grabKey: 101
-  jumpKey: 32
 --- !u!114 &629161308
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4416,6 +4396,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 629161296}
+--- !u!114 &629161310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 629161294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fc3652bf73bf7c4ea6fe730cf2f6e72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grabbableLayer:
+    m_Bits: 128
+  climbJumpForce: 2
+  climbSpeed: 2
+  climbRange: 0.05
+  grabPoint: {fileID: 0}
+  grabKey: 101
+  jumpKey: 32
+  grabStartY: 0
+  grabCandidate: {fileID: 0}
+  animator: {fileID: 0}
+  isGrab: 0
+  myBody: {fileID: 0}
+  grabbedKey: {fileID: 0}
 --- !u!1001 &633939661
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14213,7 +14219,7 @@ PrefabInstance:
       addedObject: {fileID: 629161308}
     - targetCorrespondingSourceObject: {fileID: 614441442451626803, guid: ad4885e1045425d428c5a98ae3ed870f, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 629161307}
+      addedObject: {fileID: 629161310}
   m_SourcePrefab: {fileID: 100100000, guid: ad4885e1045425d428c5a98ae3ed870f, type: 3}
 --- !u!1001 &1897264916
 PrefabInstance:
@@ -14805,6 +14811,8 @@ MonoBehaviour:
   gameOverText: {fileID: 1727192313}
   restartBtnText: {fileID: 1462508646}
   exitBtnText: {fileID: 1703860486}
+  restartBtn: {fileID: 574949576}
+  exitBtn: {fileID: 47728784}
   fadeDuration: 1
 --- !u!1001 &1995594204
 PrefabInstance:

@@ -43,8 +43,8 @@ public class WaterMovement : MonoBehaviour
     {        
         if (other.gameObject.CompareTag("Player"))
         {
+            Debug.Log("die");
             GameManager.Inst.OnPlayerDied();
         }
-        
     }
 }

@@ -28,10 +28,10 @@ public class Player : MonoBehaviour
             GameManager.Inst.OnPlayerReachedGoal();
         }
 
-        if (other.CompareTag("SavePoint"))
+        /*if (other.CompareTag("SavePoint"))
         {
             GameManager.Inst.UpdateSavePoint(other.transform);
-        }
+        }*/
 
     }
 

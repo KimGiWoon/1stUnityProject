@@ -8,9 +8,9 @@ using UnityEngine.SocialPlatforms.Impl;
 public class GameManager : MonoBehaviour
 {
 
-    [SerializeField] private Transform respawnPoint; // 리스폰 지점
-    [SerializeField] private Transform goalPoint; // 목표 지점 
-    [SerializeField] private Transform savePoint; // 세이브 지점
+    //[SerializeField] private Transform respawnPoint; // 리스폰 지점
+    //[SerializeField] private Transform goalPoint; // 목표 지점 
+    //[SerializeField] private Transform savePoint; // 세이브 지점
     [SerializeField] private GameObject gameOverUI; // GameOver 연출용 UI 패널
     [SerializeField] private GameObject gameClearUI; // GameClear 연출용 UI 패널
     private bool Goal = false;
@@ -56,15 +56,25 @@ public class GameManager : MonoBehaviour
 
     }
 
+    public void TakeGameOverUI(GameObject obj)
+    {
+        gameOverUI = obj;
+    }
+    
+    public void TakeGameClearUI(GameObject obj)
+    {
+        gameClearUI = obj;
+    }
+    
     // GameManager 초기화 (외부에서 호출)
-    public void Initialize() //초기화 메서드 [GameManager.Inst.Initialize();]
+    /*public void Initialize() //초기화 메서드 [GameManager.Inst.Initialize();]
     {
         Debug.Log("GameManager 초기화!"); // 게임 초기 세팅 등을 여기에 작성
 
         SetupPlayer();
 
         savePoint = respawnPoint; // 초기 세이브 지점은 기본 리스폰 위치
-    }
+    }*/
 
     // 플레이어를 세팅하는 메서드
     private void SetupPlayer()
@@ -89,8 +99,6 @@ public class GameManager : MonoBehaviour
         {
             Debug.LogWarning("gameOverUI가 연결되지 않았습니다!");
         }
-
-        StartCoroutine(RespawnCoroutine());
     }
     public void OnPlayerReachedGoal()
     {
@@ -121,18 +129,18 @@ public class GameManager : MonoBehaviour
         // SceneManager.LoadScene("NextStage");
     }
 
-    public void UpdateSavePoint(Transform newSavePoint)
+    /*public void UpdateSavePoint(Transform newSavePoint)
     {
         savePoint = newSavePoint;
         Debug.Log("새로운 세이브 포인트로 갱신됨: " + savePoint.position);
-    }
+    }*/
 
-    private IEnumerator RespawnCoroutine()
+    /*private IEnumerator RespawnCoroutine()
     {
         yield return new WaitForSeconds(1f); // 1초 후 리스폰 (원한다면 이 시간 조절 가능)
 
         player.Respawn(savePoint.position); // 리스폰 포인트로 리스폰
-    }
+    }*/
 
     
 }
