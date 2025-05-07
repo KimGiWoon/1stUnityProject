@@ -41,12 +41,12 @@ public class PlayerGrab : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButton(1) && grabCandidate != null)
+        if (Input.GetMouseButton(0) && grabCandidate != null)
         {
             GrabKey(grabCandidate);
         }
 
-        if (Input.GetMouseButtonUp(1))
+        if (Input.GetMouseButtonUp(0))
         {
             UnTryGrab(); // 그랩 해제
         }
