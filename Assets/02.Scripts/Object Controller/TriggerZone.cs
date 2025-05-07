@@ -36,22 +36,12 @@ public class TriggerZone : MonoBehaviour
                 isActivated = true;
                 Debug.Log("연필이 활성화되었습니다!");
 
-                // 키를 없애기 전에 그랩 해제
-                PlayerGrab playerGrab = FindObjectOfType<PlayerGrab>();
-                if (playerGrab != null && playerGrab.IsGrabbing)
-                {
-                    playerGrab.ReleaseGrabbedKey(); // 키를 잡고 있으면 해제
-                    Debug.Log("키를 잡고 있는 상태에서 해제 처리");
-                }
 
                 // 키 오브젝트 삭제
                 Destroy(other.gameObject);
                 Debug.Log("키 오브젝트가 제거되었습니다!");
             }
-            else
-            {
-                Debug.LogWarning("연필 오브젝트가 할당되지 않았습니다!");
-            }
+
         }
     }
 }
