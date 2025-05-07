@@ -74,6 +74,8 @@ public class PlayerGrab : MonoBehaviour
 
         if (grabbedKey != null) // 키를 잡고 있었다면
         {
+            // 부모 해제 전에 현재 위치를 고정하여 튀는 현상 방지
+            grabbedKey.transform.SetParent(null);
             Rigidbody keyRb = grabbedKey.GetComponent<Rigidbody>();
             if (keyRb != null)
             {
